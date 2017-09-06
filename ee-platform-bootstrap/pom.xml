@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ee-platform</artifactId>
+        <groupId>com.ax</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <description>web功能模块，每个子模块都可独立发布运行</description>
+
+    <artifactId>ee-platform-bootstrap</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ax</groupId>
+            <artifactId>ee-platform-web-common</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
