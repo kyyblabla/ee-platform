@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.ax</groupId>
-            <artifactId>ee-platform-web-common</artifactId>
+            <artifactId>ee-platform-module</artifactId>
         </dependency>
     </dependencies>
 
