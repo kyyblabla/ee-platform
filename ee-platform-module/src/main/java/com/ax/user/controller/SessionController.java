@@ -1,30 +1,26 @@
 package com.ax.user.controller;
 
+import com.ax.user.dto.SessionDto;
 import com.ax.user.dto.UserDto;
-import com.ax.user.entity.User;
-import com.ax.user.service.UserService;
+import com.ax.user.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by kyy on 2017/9/6.
+ * Created by kyy on 2017/9/8.
  */
-@RequestMapping("/user")
 @RestController
-@PreAuthorize("hasRole('ADMIN')")
-public class UserController {
+@RequestMapping("/session")
+public class SessionController {
 
     @Autowired
-    private UserService userService;
+    private SessionService sessionService;
 
     @PostMapping
-    public User createUser(@RequestBody UserDto userDto) {
-        User user = userService.crateUser(userDto);
-        return user;
+    public String login(@RequestBody SessionDto sessionDto) {
+        return sessionService.login(sessionDto);
     }
-
 }
