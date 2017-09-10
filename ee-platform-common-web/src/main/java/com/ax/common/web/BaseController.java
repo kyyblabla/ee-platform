@@ -1,23 +1,53 @@
 package com.ax.common.web;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.ax.common.security.JwtAuthUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.beans.PropertyEditorSupport;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by kyy on 2017/9/7.
  */
 @Slf4j
 public class BaseController {
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        //日期格式转换器
+        binder.registerCustomEditor(Date.class, new FastJsonDateEditor());
+    }
+
+    class FastJsonDateEditor extends PropertyEditorSupport {
+        @Override
+        public void setAsText(String text) throws IllegalArgumentException {
+            setValue(StringUtils.isEmpty(text) ? null : TypeUtils.castToDate(text));
+        }
+
+        @Override
+        public String getAsText() {
+            Date value = (Date) getValue();
+            return (value != null ? new SimpleDateFormat(JSON.DEFFAULT_DATE_FORMAT).format(value) : "");
+        }
+    }
 
     public JwtAuthUserDetails getSessionUser() {
         try {
@@ -29,7 +59,7 @@ public class BaseController {
         }
         return null;
     }
-    
+
     /**
      * 获取客户端的IP地址
      *
@@ -100,5 +130,6 @@ public class BaseController {
             log.error(e.getMessage(), e);
         }
     }
+
 
 }

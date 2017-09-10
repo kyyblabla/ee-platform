@@ -24,6 +24,7 @@
         <module>ee-platform-common-web</module>
         <module>ee-platform-module</module>
         <module>ee-platform-bootstrap</module>
+        <module>ee-platform-extra</module>
     </modules>
 
     <dependencies>

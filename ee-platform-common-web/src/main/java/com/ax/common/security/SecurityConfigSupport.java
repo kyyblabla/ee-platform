@@ -49,7 +49,6 @@ public class SecurityConfigSupport extends WebSecurityConfigurerAdapter {
         return new JwtAuthEntryPoint();
     }
 
-
     @Override
     protected UserDetailsService userDetailsService() {
         return lookup(UserDetailsService.class);
