@@ -1,5 +1,6 @@
 package com.ax.user.service;
 
+import com.ax.common.service.BaseService;
 import com.ax.common.util.BeanMapper;
 import com.ax.user.dao.UserDao;
 import com.ax.user.dto.UserDto;
@@ -13,23 +14,23 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by kyy on 2017/9/8.
  */
 @Service
-public class UserService {
+public class UserService extends BaseService<User, UserDao> {
 
-    @Autowired
-    private UserDao userDao;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     public User findByUserName(String name) {
-        return userDao.findByName(name);
+        return dao.findByName(name);
     }
 
     @Transactional
     public User crateUser(UserDto userDto) {
         User user = BeanMapper.map(userDto, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDao.save(user);
-        return user;
+        return this.save(user);
+    }
+
+    public void findByExample(){
     }
 
 }
