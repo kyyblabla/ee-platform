@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>dao</name>
+    <savePath>src/main/java/${packageName}/${moduleName}/${subModuleName}/service</savePath>
+    <content><![CDATA[
+package ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.service;
+
+import com.ax.common.service.BaseService;
+
+import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.dao.${ClassName}Dao;
+import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity.${ClassName};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Created <#if createUser != "">.${createUser}</#if> on ${createDate}.
+ */
+@Service
+public class ${ClassName}Service extends BaseService<${ClassName}, ${ClassName}Dao> {
+
+}
+	]]>
+    </content>
+</template>
