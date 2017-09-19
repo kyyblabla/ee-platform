@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
-	<name>dao</name>
-	<savePath>src/main/java/${packageName}/${moduleName}/${subModuleName}/dao</savePath>
-	<content><![CDATA[
+    <name>dao</name>
+    <savePath>
+        <![CDATA[ src/main/java/${packageName}/${moduleName}<#if subModuleName != "">/${subModuleName}</#if>/dao ]]></savePath>
+    <content><![CDATA[
 package ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.dao
 
 import com.ax.common.annotation.JpaDao;
@@ -18,5 +19,5 @@ public interface ${ClassName}Dao extends BaseDao<${ClassName}> {
 
 }
 	]]>
-	</content>
+    </content>
 </template>

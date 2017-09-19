@@ -32,7 +32,7 @@ public class BaseController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        //日期格式转换器
+        //日期格式转换器,可以在controller直接注入date类型
         binder.registerCustomEditor(Date.class, new FastJsonDateEditor());
     }
 

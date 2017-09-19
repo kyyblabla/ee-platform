@@ -35,9 +35,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        filterChain.doFilter(request, response);
+        try {
+            filterChain.doFilter(request, response);
+        }finally {
+            //由于线程池复用，需要清理权限数据
+            SecurityContextHolder.clearContext();
+        }
     }
-
 
     private Authentication getAuthentication(HttpServletRequest request) {
         String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
