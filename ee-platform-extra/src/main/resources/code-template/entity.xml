@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>dao</name>
+    <savePath>
+        <![CDATA[ src/main/java/${packageName}/${moduleName}<#if subModuleName != "">/${subModuleName}</#if>/entity ]]></savePath>
+    <content><![CDATA[
+package ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity
+
+
+import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity.${ClassName};
+
+/**
+ * Created <#if createUser != "">.${createUser}</#if> on ${createDate}.
+ */
+public class ${ClassName} {
+
+}
+	]]>
+    </content>
+</template>
