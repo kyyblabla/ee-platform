@@ -1,5 +1,7 @@
-package com.ax.extra.gen.util;
+package com.ax.extra.gen.code;
 
+import com.alibaba.fastjson.JSON;
+import com.ax.extra.gen.model.GenTable;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by kyy on 2017/9/22.
+ * Created by kyy on 2017/9/23.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,7 +35,7 @@ public class DatabaseReverserTest {
 
     @Test
     public void getTableInfo() throws Exception {
-        DatabaseReverser.Table tableInfo = getDatabaseReverser().getTable("ee-platform", "user");
+        GenTable tableInfo = getDatabaseReverser().getTable("ee-platform", "user");
         Assert.assertNotNull(tableInfo);
     }
 
@@ -46,7 +48,7 @@ public class DatabaseReverserTest {
 
     @Test
     public void getTables() throws Exception {
-        List<DatabaseReverser.Table> tables = getDatabaseReverser().getTables("ee-platform");
+        List<GenTable> tables = getDatabaseReverser().getTables("ee-platform");
         Assert.assertTrue(tables.size() > 0);
     }
 

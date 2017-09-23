@@ -1,7 +1,8 @@
-package com.ax.extra.gen.util;
+package com.ax.extra.gen.code;
 
+import com.ax.extra.gen.model.GenColumn;
+import com.ax.extra.gen.model.GenTable;
 import com.google.common.collect.Lists;
-import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Connection;
@@ -28,14 +29,21 @@ public class DatabaseReverser {
         return new DatabaseReverser(conn);
     }
 
-    public Table getTable(String databaseName, String tableName) {
+    /**
+     * 获取表信息
+     *
+     * @param databaseName 库名
+     * @param tableName    表明
+     * @return
+     */
+    public GenTable getTable(String databaseName, String tableName) {
         try {
             // 获取基本表信息
-            Table table = new Table();
+            GenTable table = new GenTable();
             table.setTableName(tableName);
             table.setColumns(getColumns(databaseName, tableName));
-            table.setClassMame(convertLodashCaseToCamelCase(table.getTableName()));
-            table.setClassMameFll(convertLodashCaseToFirstLetterLowerCaseCamelCase(table.getTableName()));
+            table.setClassName(convertLodashCaseToCamelCase(table.getTableName()));
+            table.setClassNameFll(convertLodashCaseToFirstLetterLowerCaseCamelCase(table.getTableName()));
 
             ResultSet rs = conn.getMetaData().getTables(null, databaseName, tableName, new String[]{"TABLE"});
             //设置备注信息
@@ -48,12 +56,26 @@ public class DatabaseReverser {
         }
     }
 
-    public List<Table> getTables(String databaseName) throws SQLException {
+    /**
+     * 获取表列表
+     *
+     * @param databaseName
+     * @return
+     * @throws SQLException
+     */
+    public List<GenTable> getTables(String databaseName) throws SQLException {
         return getTableNames(databaseName).stream()
                 .map(tableName -> getTable(databaseName, tableName))
                 .collect(Collectors.toList());
     }
-    
+
+    /**
+     * 获取数据库表名称
+     *
+     * @param databaseName
+     * @return
+     * @throws SQLException
+     */
     public List<String> getTableNames(String databaseName) throws SQLException {
         DatabaseMetaData metaData = conn.getMetaData();
         ResultSet rs = metaData.getTables(null, databaseName, "%", new String[]{"TABLE"});
@@ -64,12 +86,20 @@ public class DatabaseReverser {
         return tables;
     }
 
-    public List<Column> getColumns(String databaseName, String tableName) throws SQLException {
+    /**
+     * 获取列
+     *
+     * @param databaseName 库名
+     * @param tableName    表名
+     * @return
+     * @throws SQLException
+     */
+    public List<GenColumn> getColumns(String databaseName, String tableName) throws SQLException {
         DatabaseMetaData metaData = conn.getMetaData();
         ResultSet rs = metaData.getColumns(null, databaseName, tableName, "%");
-        List<Column> columns = Lists.newArrayList();
+        List<GenColumn> columns = Lists.newArrayList();
         while (rs.next()) {
-            Column column = new Column();
+            GenColumn column = new GenColumn();
             column.setNullable(StringUtils.equals("YES", rs.getString("IS_NULLABLE")));
             column.setAutoIncrement(StringUtils.equals("YES", rs.getString("IS_AUTOINCREMENT")));
 
@@ -77,7 +107,8 @@ public class DatabaseReverser {
             column.setColumnType(rs.getString("TYPE_NAME"));
             column.setColumnComment(rs.getString("REMARKS"));
 
-            column.setAttributeName(convertLodashCaseToCamelCase(column.getColumnName()));
+            column.setAttributeName(convertLodashCaseToFirstLetterLowerCaseCamelCase(column.getColumnName()));
+            column.setAttributeNameFlu(convertLodashCaseToCamelCase(column.getColumnName()));
             column.setAttributeType(convertSqlTypeToJavaType(column.getColumnType()));
 
             columns.add(column);
@@ -93,36 +124,15 @@ public class DatabaseReverser {
         return columns;
     }
 
-    @Data
-    public static class Table {
 
-        private String tableName;
-        private String tableComment;
-
-        private String classMame;
-        private String classMameFll; //fll：首字母小写 first litter lowercase
-
-        private List<Column> columns;
-
-    }
-
-    @Data
-    public static class Column {
-
-        private boolean primaryKey;
-        private boolean nullable;
-        private boolean autoIncrement;
-
-        private String columnName;
-        private String columnType;
-        private String columnComment;
-
-        private String attributeName;
-        private String attributeType;
-
-    }
-
-
+    /**
+     * 获取主键列表
+     *
+     * @param databaseName 库名
+     * @param tableName    表名
+     * @return
+     * @throws SQLException
+     */
     private List<String> getPrimaryKey(String databaseName, String tableName) throws SQLException {
         DatabaseMetaData metaData = conn.getMetaData();
         ResultSet rs = metaData.getPrimaryKeys(null, databaseName, tableName);
@@ -134,6 +144,13 @@ public class DatabaseReverser {
     }
 
 
+    /**
+     * sql数据类型转化为java数据类型
+     * 其中由jdk8提供日期、时间类型，不使用java.utils提供的日期时间类型
+     *
+     * @param sqlType
+     * @return
+     */
     private String convertSqlTypeToJavaType(String sqlType) {
 
         if (StringUtils.isBlank(sqlType)) {

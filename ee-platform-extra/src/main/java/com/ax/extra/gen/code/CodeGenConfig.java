@@ -6,5 +6,4 @@ package com.ax.extra.gen.code;
 public class CodeGenConfig {
 
 
-
 }
