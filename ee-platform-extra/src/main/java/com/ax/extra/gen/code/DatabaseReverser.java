@@ -1,5 +1,6 @@
 package com.ax.extra.gen.code;
 
+import com.ax.common.util.Exceptions;
 import com.ax.extra.gen.model.GenColumn;
 import com.ax.extra.gen.model.GenTable;
 import com.google.common.collect.Lists;
@@ -52,7 +53,7 @@ public class DatabaseReverser {
             }
             return table;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw Exceptions.unchecked(e);
         }
     }
 

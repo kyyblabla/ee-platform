@@ -2,10 +2,12 @@ package com.ax.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by kyy on 2017/9/23.
@@ -29,7 +31,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         }
     }
 
-    public static boolean createFile(String fileName) {
+    public static boolean createFile(String fileName) throws IOException {
         File file = new File(fileName);
         if (file.exists()) {
             log.debug("文件 " + fileName + " 已存在!");
@@ -48,35 +50,48 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         }
 
         // 创建文件
-        try {
-            if (file.createNewFile()) {
-                log.debug(fileName + " 文件创建成功!");
-                return true;
-            } else {
-                log.debug(fileName + " 文件创建失败!");
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (file.createNewFile()) {
+            log.debug(fileName + " 文件创建成功!");
+            return true;
+        } else {
             log.debug(fileName + " 文件创建失败!");
             return false;
         }
 
+
     }
 
-    public static void writeToFile(String fileName, String content) {
-        try {
-            writeStringToFile(new File(fileName), content, "utf-8");
-            log.debug("文件 " + fileName + " 写入成功!");
-        } catch (IOException e) {
-            log.debug("文件 " + fileName + " 写入失败! " + e.getMessage());
-        }
+    public static void writeToFile(String fileName, String content) throws IOException {
+        writeStringToFile(new File(fileName), content, "utf-8");
+        log.debug("文件 " + fileName + " 写入成功!");
     }
 
     public static String readClassPathFileToString(String pathName) throws IOException {
         InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(pathName);
         String str = IOUtils.toString(resourceAsStream);
         return str;
+    }
+
+
+    public static String getFileNameWithoutSuffix(String fileName) {
+        if (StringUtils.isBlank(fileName)) {
+            return null;
+        }
+        if ((fileName.lastIndexOf(".") == -1) || (fileName.indexOf(File.separator) != -1)) {
+            return null;
+        }
+        return fileName.substring(0, fileName.lastIndexOf("."));
+    }
+
+    public static String getFileNameWithoutSuffixByPathName(String pathName) {
+
+        if (StringUtils.isBlank(pathName)) {
+            return null;
+        }
+        if (pathName.indexOf(File.separator) == -1) {
+            return null;
+        }
+        return getFileNameWithoutSuffix(pathName.substring(pathName.lastIndexOf(File.separator) + 1));
     }
 
 

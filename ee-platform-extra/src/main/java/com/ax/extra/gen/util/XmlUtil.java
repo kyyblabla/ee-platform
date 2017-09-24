@@ -16,7 +16,8 @@ import java.io.InputStreamReader;
 @Slf4j
 public class XmlUtil {
 
-    public static <T> T fileToObject(String filePath, Class<?> clazz) {
+
+    public static <T> T fileToObject(String filePath, Class<T> clazz) {
         try {
             Resource resource = new ClassPathResource(filePath);
             InputStream is = resource.getInputStream();
@@ -41,5 +42,16 @@ public class XmlUtil {
         }
         return null;
     }
+
+    public static <T> T stringToObject(String str, Class<T> clazz) {
+        try {
+            return (T) JaxbMapper.fromXml(str, clazz);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.warn("Error file convert: {}", e.getMessage());
+        }
+        return null;
+    }
+
 
 }

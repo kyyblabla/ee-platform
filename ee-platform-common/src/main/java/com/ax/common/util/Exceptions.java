@@ -4,9 +4,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- *
- *  关于异常的工具类.
- *  Created by kyy on 2017/7/13.
+ * 关于异常的工具类.
+ * Created by kyy on 2017/7/13.
  */
 
 public class Exceptions {
@@ -19,6 +18,20 @@ public class Exceptions {
             return (RuntimeException) e;
         } else {
             return new RuntimeException(e);
+        }
+    }
+
+    public static <T extends RuntimeException> RuntimeException unchecked(Exception e, Class<T> clazz) {
+        if (e instanceof RuntimeException) {
+            return (RuntimeException) e;
+        } else {
+            try {
+                T t = clazz.newInstance();
+                t.setStackTrace(e.getStackTrace());
+                return t;
+            } catch (Exception ce) {
+                return new RuntimeException(e);
+            }
         }
     }
 

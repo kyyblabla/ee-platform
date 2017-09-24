@@ -10,8 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<#assign createDate = .now>
+
 /**
- * Created <#if createUser != "">.${createUser}</#if> on ${createDate}.
+ * Created by ${createUser!"AxCodeGen"} on ${createDate?string["yyyy/MM/dd"]}.
  */
 @Service
 public class ${className}Service extends BaseService<${className}, ${className}Dao> {

@@ -5,9 +5,9 @@ import com.ax.common.repository.BaseDao;
 
 import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity.${className};
 
-
+<#assign createDate = .now>
 /**
- * Created <#if createUser != "">.${createUser}</#if> on ${createDate}.
+ * Created by ${createUser!"AxCodeGen"} on ${createDate?string["yyyy/MM/dd"]}.
  */
 @JpaDao
 public interface ${className}Dao extends BaseDao<${className}> {

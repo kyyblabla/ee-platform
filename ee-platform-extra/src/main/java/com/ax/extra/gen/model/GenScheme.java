@@ -17,6 +17,8 @@ public class GenScheme {
     private String classNameFll;     //fll：首字母小写 first litter lowercase
     private GenTable table;
 
+    private String genPlan; //生成方案
+
 
     public String getClassName() {
         return className == null ? table.getClassName() : className;

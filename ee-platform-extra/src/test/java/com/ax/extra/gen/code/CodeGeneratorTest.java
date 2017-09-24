@@ -4,9 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.ax.common.util.FileUtils;
 import com.ax.extra.gen.model.GenScheme;
 import com.ax.extra.gen.model.GenTable;
-import org.junit.Assert;
+
+import static org.junit.Assert.*;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * Created by kyy on 2017/9/23.
@@ -18,17 +22,41 @@ public class CodeGeneratorTest {
 
     @BeforeClass
     public static void beforeClass() {
-        codeGenerator = new CodeGenerator();
-    }
-
-    private GenTable getTestData() {
-        return null;
+        codeGenerator = new CodeGenerator("/Users/kyy/test");
     }
 
 
     @Test
     public void generateTemplateToFile() throws Exception {
+        GenScheme genScheme = getGenScheme();
+        codeGenerator.generateTemplateToFile(genScheme, "code-template/jpa-dao/Entity.java");
+    }
 
+    @Test
+    public void generate() throws Exception {
+
+        GenScheme genScheme = getGenScheme();
+        genScheme.setModuleName("emp");
+
+        genScheme.setSubModuleName("test");
+
+        genScheme.setGenPlan("jpa-dao");
+        codeGenerator.generate(genScheme);
+
+        genScheme.setGenPlan("crud-jpa");
+        codeGenerator.generate(genScheme);
+
+    }
+
+    @Test
+    public void getTemplatePathNames() throws Exception {
+        assertEquals(codeGenerator.getTemplatePathNamesByGenPlan("jpa-dao").size(), 2);
+        assertEquals(codeGenerator.getTemplatePathNamesByGenPlan("crud").size(), 2);
+        assertEquals(codeGenerator.getTemplatePathNamesByGenPlan("crud-jpa").size(), 4);
+    }
+
+
+    private GenScheme getGenScheme() throws IOException {
         GenScheme genScheme = new GenScheme();
         genScheme.setModuleName("test");
         genScheme.setPackageName("com.kyyblabla");
@@ -36,19 +64,8 @@ public class CodeGeneratorTest {
         genScheme.setName("test");
         genScheme.setReplaceFile(true);
         genScheme.setTable(JSON.parseObject(FileUtils.readClassPathFileToString("user.json"), GenTable.class));
-
-        String s = codeGenerator.generateTemplateToFile(genScheme, FileUtils.readClassPathFileToString("code-template/Entity.java"), "");
-        Assert.assertTrue(s != null);
+        return genScheme;
     }
 
-    @Test
-    public void getCodeTemplates() throws Exception {
-
-    }
-
-    @Test
-    public void generate() throws Exception {
-
-    }
 
 }

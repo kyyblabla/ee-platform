@@ -1,5 +1,6 @@
 package com.ax.system.user.controller;
 
+import com.ax.common.web.BaseController;
 import com.ax.system.user.dto.UserDto;
 import com.ax.system.user.entity.User;
 import com.ax.system.user.service.UserService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 @RestController
 @PreAuthorize("hasRole('ADMIN')")
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
