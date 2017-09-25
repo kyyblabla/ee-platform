@@ -1,5 +1,6 @@
 package com.ax.extra.gen.code;
 
+import com.ax.common.util.BeanMapper;
 import com.ax.common.util.FileUtils;
 import com.ax.extra.gen.model.GenConfig;
 import com.ax.extra.gen.model.GenScheme;
@@ -22,16 +23,28 @@ public class CodeGenerator {
 
     private GenConfig genConfig;
 
-    public static final String CODE_TEMPLATE_BASE_DIR = "code-template";
+    public static final String CODE_TEMPLATE_BASE_DIR = "gen-plan";
 
-    public CodeGenerator(GenConfig genConfig, String baseDir) {
+    public CodeGenerator(String baseDir, GenConfig genConfig) {
         this.genConfig = genConfig;
         this.baseDir = baseDir;
     }
 
+
     public CodeGenerator(String baseDir) {
-        this(XmlUtil.fileToObject(CODE_TEMPLATE_BASE_DIR + File.separator + "config.xml", GenConfig.class), baseDir);
+        this(baseDir, XmlUtil.fileToObject("gen-config-default.xml", GenConfig.class));
     }
+
+    public CodeGenerator(String baseDir, String genConfigPath) {
+        //加载默认配置
+        this(baseDir);
+        if (!StringUtils.equals("gen-config-default.xml", genConfigPath)) {
+            //加入到默认配置
+            GenConfig extGenConfig = XmlUtil.fileToObject(genConfigPath, GenConfig.class);
+            this.genConfig.getPlans().addAll(extGenConfig.getPlans());
+        }
+    }
+
 
     /**
      * 通过模板生成代码

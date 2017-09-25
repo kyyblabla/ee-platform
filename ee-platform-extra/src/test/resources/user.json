@@ -1,1 +1,63 @@
-{"className":"User","classNameFll":"user","columns":[{"attributeName":"id","attributeNameFlu":"Id","attributeType":"Long","autoIncrement":true,"columnComment":"","columnName":"id","columnType":"BIGINT","nullable":false,"primaryKey":true},{"attributeName":"age","attributeNameFlu":"Age","attributeType":"Integer","autoIncrement":false,"columnComment":"","columnName":"age","columnType":"INT","nullable":false,"primaryKey":false},{"attributeName":"name","attributeNameFlu":"Name","attributeType":"String","autoIncrement":false,"columnComment":"","columnName":"name","columnType":"VARCHAR","nullable":false,"primaryKey":false},{"attributeName":"password","attributeNameFlu":"Password","attributeType":"String","autoIncrement":false,"columnComment":"","columnName":"password","columnType":"VARCHAR","nullable":false,"primaryKey":false},{"attributeName":"roles","attributeNameFlu":"Roles","attributeType":"String","autoIncrement":false,"columnComment":"","columnName":"roles","columnType":"VARCHAR","nullable":true,"primaryKey":false}],"tableComment":"","tableName":"user"}
+{
+  "className": "User",
+  "classNameFll": "user",
+  "columns": [
+    {
+      "attributeName": "id",
+      "attributeNameFlu": "Id",
+      "attributeType": "Long",
+      "autoIncrement": true,
+      "columnComment": "",
+      "columnName": "id",
+      "columnType": "BIGINT",
+      "nullable": false,
+      "primaryKey": true
+    },
+    {
+      "attributeName": "age",
+      "attributeNameFlu": "Age",
+      "attributeType": "Integer",
+      "autoIncrement": false,
+      "columnComment": "",
+      "columnName": "age",
+      "columnType": "INT",
+      "nullable": false,
+      "primaryKey": false
+    },
+    {
+      "attributeName": "name",
+      "attributeNameFlu": "Name",
+      "attributeType": "String",
+      "autoIncrement": false,
+      "columnComment": "",
+      "columnName": "name",
+      "columnType": "VARCHAR",
+      "nullable": false,
+      "primaryKey": false
+    },
+    {
+      "attributeName": "password",
+      "attributeNameFlu": "Password",
+      "attributeType": "String",
+      "autoIncrement": false,
+      "columnComment": "",
+      "columnName": "password",
+      "columnType": "VARCHAR",
+      "nullable": false,
+      "primaryKey": false
+    },
+    {
+      "attributeName": "roles",
+      "attributeNameFlu": "Roles",
+      "attributeType": "String",
+      "autoIncrement": false,
+      "columnComment": "",
+      "columnName": "roles",
+      "columnType": "VARCHAR",
+      "nullable": true,
+      "primaryKey": false
+    }
+  ],
+  "tableComment": "",
+  "tableName": "user"
+}

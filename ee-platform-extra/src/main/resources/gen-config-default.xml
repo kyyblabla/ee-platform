@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<config>
+<genCofig>
 
+    <!--生成计划 begin-->
     <plans>
         <plan name="jpa-dao" comment="jpa类型的dao">
             <template>jpa-dao/Entity.java</template>
@@ -27,5 +28,23 @@
             <template>REF:crud-test</template>
         </plan>
     </plans>
+    <!--生成计划 end-->
 
-</config>
+
+    <!--类型处理器 begin-->
+    <typeHandles>
+        <handle name="genderEnumHandler">genderEnumHandler</handle>
+    </typeHandles>
+    <!--类型处理器 end-->
+
+    <!--需要生成的数据库表定义 begin-->
+    <tables>
+        <table name="user" moduleName="system" subMoudle="user" className="User" classNameFll="user">
+            <columnOverride columnName="gender" columnType="" attributeName="gender" attributeType="Enum"
+                            typeHandle="genderEnumHandler"/>
+        </table>
+    </tables>
+    <!--需要生成的数据库表定义 end-->
+
+
+</genCofig>

@@ -29,7 +29,7 @@ public class CodeGeneratorTest {
     @Test
     public void generateTemplateToFile() throws Exception {
         GenScheme genScheme = getGenScheme();
-        codeGenerator.generateTemplateToFile(genScheme, "code-template/jpa-dao/Entity.java");
+        codeGenerator.generateTemplateToFile(genScheme, "gen-plan/jpa-dao/Entity.java");
     }
 
     @Test

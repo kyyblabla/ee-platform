@@ -5,8 +5,6 @@ import com.ax.extra.gen.model.GenConfig;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by kyy on 2017/9/24.
  */
@@ -20,7 +18,7 @@ public class XmlUtilTest {
     @Test
     public void stringToObject() throws Exception {
 
-        String s = FileUtils.readClassPathFileToString("code-template/config.xml");
+        String s = FileUtils.readClassPathFileToString("gen-plan/config.xml");
         GenConfig genConfig = XmlUtil.stringToObject(s, GenConfig.class);
         Assert.assertTrue(genConfig != null);
 

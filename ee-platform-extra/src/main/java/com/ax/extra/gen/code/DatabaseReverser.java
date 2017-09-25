@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 数据库反向
  * Created by kyy on 2017/9/22.
  */
 public class DatabaseReverser {
