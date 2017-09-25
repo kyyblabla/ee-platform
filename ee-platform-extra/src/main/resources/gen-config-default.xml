@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<genCofig>
+<config>
 
     <!--生成计划 begin-->
     <plans>
@@ -30,21 +30,44 @@
     </plans>
     <!--生成计划 end-->
 
+    <!--jdbc配置，需要客户端配置-->
+    <!--<jdbcConnection>-->
+    <!--<driverClassName>11</driverClassName>-->
+    <!--<url>22</url>-->
+    <!--<username>333</username>-->
+    <!--<password>444</password>-->
+    <!--</jdbcConnection>-->
 
     <!--类型处理器 begin-->
-    <typeHandles>
-        <handle name="genderEnumHandler">genderEnumHandler</handle>
-    </typeHandles>
+    <!--必须实现接口 "com.ax.extra.gen.convert.TypeConvert"-->
+    <typeConverts>
+        <typeConvert name="defaultTypeConvert">com.ax.extra.gen.convert.DefaultTypeConvert</typeConvert>
+    </typeConverts>
     <!--类型处理器 end-->
 
+    <!--默认配置 begin-->
+    <genProperty>
+        <genPlan>crud-jpa-with-test</genPlan>
+        <replaceFile>true</replaceFile>
+        <typeHandle>defaultTypeHandle</typeHandle>
+        <packageName>com.ax</packageName>
+        <!--表名前缀匹配模式如：表"sys_user" 的前缀为"sys_" -->
+        <prefixPattern>^[\w][\w\d]+_</prefixPattern>
+    </genProperty>
+    <!--默认配置 end-->
+
     <!--需要生成的数据库表定义 begin-->
-    <tables>
-        <table name="user" moduleName="system" subMoudle="user" className="User" classNameFll="user">
-            <columnOverride columnName="gender" columnType="" attributeName="gender" attributeType="Enum"
-                            typeHandle="genderEnumHandler"/>
-        </table>
-    </tables>
+    <!--<schemes>-->
+    <!--<scheme genPlan="crud-jpa-with-test" name="user" packageName="com.kyyblabla" moduleName="system"-->
+    <!--subMoudle="user"-->
+    <!--replaceFile="true">-->
+    <!--<table className="User" classNameFll="user">-->
+    <!--<columnOverride columnName="gender" columnType="" attributeName="gender" attributeType="Enum"-->
+    <!--typeHandle="genderEnumHandler"/>-->
+    <!--</table>-->
+    <!--</scheme>-->
+    <!--</schemes>-->
     <!--需要生成的数据库表定义 end-->
 
 
-</genCofig>
+</config>

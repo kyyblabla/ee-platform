@@ -19,5 +19,5 @@ public class GenColumn {
     private String attributeName;
     private String attributeNameFlu; // flu：first litter uppercase 属性名首字母大写
     private String attributeType;
-
+    
 }

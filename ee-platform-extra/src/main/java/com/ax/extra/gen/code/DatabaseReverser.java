@@ -1,6 +1,8 @@
 package com.ax.extra.gen.code;
 
 import com.ax.common.util.Exceptions;
+import com.ax.extra.gen.convert.DefaultTypeConvert;
+import com.ax.extra.gen.convert.TypeConvert;
 import com.ax.extra.gen.model.GenColumn;
 import com.ax.extra.gen.model.GenTable;
 import com.google.common.collect.Lists;
@@ -22,13 +24,20 @@ public class DatabaseReverser {
 
     private Connection conn;
 
+    private TypeConvert typeConvert;
+
     private DatabaseReverser(Connection conn) {
         this.conn = conn;
+        this.typeConvert = new DefaultTypeConvert();
     }
 
 
     public static DatabaseReverser createDatabaseReverser(Connection conn) {
         return new DatabaseReverser(conn);
+    }
+
+    public void setTypeConvert(TypeConvert typeConvert) {
+        this.typeConvert = typeConvert;
     }
 
     /**
@@ -111,7 +120,7 @@ public class DatabaseReverser {
 
             column.setAttributeName(convertLodashCaseToFirstLetterLowerCaseCamelCase(column.getColumnName()));
             column.setAttributeNameFlu(convertLodashCaseToCamelCase(column.getColumnName()));
-            column.setAttributeType(convertSqlTypeToJavaType(column.getColumnType()));
+            column.setAttributeType(typeConvert.convertSqlTypeToJavaType(column.getColumnType()));
 
             columns.add(column);
         }
@@ -145,54 +154,6 @@ public class DatabaseReverser {
         return keys;
     }
 
-
-    /**
-     * sql数据类型转化为java数据类型
-     * 其中由jdk8提供日期、时间类型，不使用java.utils提供的日期时间类型
-     *
-     * @param sqlType
-     * @return
-     */
-    private String convertSqlTypeToJavaType(String sqlType) {
-
-        if (StringUtils.isBlank(sqlType)) {
-            return "";
-        }
-        String javaType = "";
-        String sqlTypeStr = sqlType.trim().toLowerCase();
-        if (sqlTypeStr.equals("int")) {
-            javaType = "Integer";
-        } else if (sqlTypeStr.equals("char")) {
-            javaType = "String";
-        } else if (sqlTypeStr.equals("text")) {
-            javaType = "String";
-        } else if (sqlTypeStr.equals("number")) {
-            javaType = "Integer";
-        } else if (sqlTypeStr.indexOf("varchar") != -1) {
-            javaType = "String";
-        } else if (sqlTypeStr.equals("blob")) {
-            javaType = "Byte[]";
-        } else if (sqlTypeStr.equals("float")) {
-            javaType = "Float";
-        } else if (sqlTypeStr.equals("double")) {
-            javaType = "Double";
-        } else if (sqlTypeStr.equals("decimal")) {
-            javaType = "BigDecimal";
-        } else if (sqlTypeStr.equals("bigint")) {
-            javaType = "Long";
-        } else if (sqlTypeStr.equals("date")) {
-            javaType = "LocalDate";
-        } else if (sqlTypeStr.equals("time")) {
-            javaType = "LocalTime";
-        } else if (sqlTypeStr.equals("datetime")) {
-            javaType = "LocalDateTime";
-        } else if (sqlTypeStr.equals("timestamp")) {
-            javaType = "Instant";
-        } else if (sqlTypeStr.equals("year")) {
-            javaType = "String";
-        }
-        return javaType;
-    }
 
     /**
      * 下换线命名转化为驼峰命名

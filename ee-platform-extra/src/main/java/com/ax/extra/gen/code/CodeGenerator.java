@@ -1,8 +1,7 @@
 package com.ax.extra.gen.code;
 
-import com.ax.common.util.BeanMapper;
 import com.ax.common.util.FileUtils;
-import com.ax.extra.gen.model.GenConfig;
+import com.ax.extra.gen.config.GenConfig;
 import com.ax.extra.gen.model.GenScheme;
 import com.ax.extra.gen.util.FreeMarkers;
 import com.ax.extra.gen.util.XmlUtil;
@@ -120,7 +119,7 @@ public class CodeGenerator {
 
         filePath = StringUtils.replacePattern(filePath, "//|\\\\", File.separator);
         filePath = StringUtils.replacePattern(filePath, "\\.", File.separator);
-        String fileName = StringUtils.join(scheme.getClassName(), StringUtils.capitalize(StringUtils.trimToEmpty(codeTemplateType)), ".java");
+        String fileName = StringUtils.join(scheme.getTable().getClassName(), StringUtils.capitalize(StringUtils.trimToEmpty(codeTemplateType)), ".java");
         return filePath + File.separator + fileName;
     }
 
