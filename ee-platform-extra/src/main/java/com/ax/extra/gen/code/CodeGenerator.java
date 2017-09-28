@@ -1,6 +1,6 @@
 package com.ax.extra.gen.code;
 
-import com.ax.common.util.FileUtils;
+import com.ax.common.util.FileUtilsExt;
 import com.ax.extra.gen.config.GenConfig;
 import com.ax.extra.gen.model.GenScheme;
 import com.ax.extra.gen.util.FreeMarkers;
@@ -58,13 +58,13 @@ public class CodeGenerator {
         String savePathName = getSavePathNameFromScheme(scheme, templateType);
 
         if (scheme.getReplaceFile()) {
-            FileUtils.deleteFile(savePathName);
+            FileUtilsExt.deleteFile(savePathName);
         }
         // 创建并写入文件
-        if (FileUtils.createFile(savePathName)) {
-            String codeTemplate = FileUtils.readClassPathFileToString(CODE_TEMPLATE_BASE_DIR + File.separator + templatePathName);
+        if (FileUtilsExt.createFile(savePathName)) {
+            String codeTemplate = FileUtilsExt.readClassPathFileToString(CODE_TEMPLATE_BASE_DIR + File.separator + templatePathName);
             String content = FreeMarkers.renderString(codeTemplate, scheme);
-            FileUtils.writeToFile(savePathName, content);
+            FileUtilsExt.writeToFile(savePathName, content);
             log.debug("文件创建成功{}", savePathName);
         } else {
             log.debug("文件创建失败{}", savePathName);
@@ -112,6 +112,7 @@ public class CodeGenerator {
                 baseDir,
                 File.separator, "src",
                 File.separator, getSourceRootPath(codeTemplateType),
+                File.separator, "java",
                 File.separator, scheme.getPackageName(),
                 File.separator, scheme.getModuleName(),
                 File.separator, StringUtils.trimToEmpty(scheme.getSubModuleName()),
@@ -119,7 +120,7 @@ public class CodeGenerator {
 
         filePath = StringUtils.replacePattern(filePath, "//|\\\\", File.separator);
         filePath = StringUtils.replacePattern(filePath, "\\.", File.separator);
-        String fileName = StringUtils.join(scheme.getTable().getClassName(), StringUtils.capitalize(StringUtils.trimToEmpty(codeTemplateType)), ".java");
+        String fileName = StringUtils.join(scheme.getTable().getClassName(), StringUtils.capitalize(StringUtils.trimToEmpty(codeTemplateType).replace("Entity", "")), ".java");
         return filePath + File.separator + fileName;
     }
 

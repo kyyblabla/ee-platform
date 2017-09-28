@@ -36,7 +36,7 @@ public class BaseController {
         binder.registerCustomEditor(Date.class, new FastJsonDateEditor());
     }
 
-    class FastJsonDateEditor extends PropertyEditorSupport {
+    private static class FastJsonDateEditor extends PropertyEditorSupport {
         @Override
         public void setAsText(String text) throws IllegalArgumentException {
             setValue(StringUtils.isEmpty(text) ? null : TypeUtils.castToDate(text));
@@ -78,15 +78,12 @@ public class BaseController {
             ipAddress = request.getRemoteAddr();
             if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")) {
                 // 根据网卡取本机配置的IP
-                InetAddress inet = null;
                 try {
-                    inet = InetAddress.getLocalHost();
+                    ipAddress = InetAddress.getLocalHost().getHostAddress();
                 } catch (UnknownHostException e) {
                     log.error(e.getMessage(), e);
                 }
-                ipAddress = inet.getHostAddress();
             }
-
         }
 
         // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
@@ -107,9 +104,9 @@ public class BaseController {
 
 
     public void writeFile(HttpServletResponse response, File file) {
-        try {
-            writeFile(response, new FileInputStream(file), file.getName());
-        } catch (FileNotFoundException e) {
+        try (FileInputStream fs = new FileInputStream(file)) {
+            writeFile(response, fs, file.getName());
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
     }

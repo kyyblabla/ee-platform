@@ -1,19 +1,19 @@
 package com.ax.common.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * Created by kyy on 2017/9/23.
  */
 @Slf4j
-public class FileUtils extends org.apache.commons.io.FileUtils {
+public class FileUtilsExt extends FileUtils {
 
     public static boolean deleteFile(String fileName) {
         File file = new File(fileName);
@@ -67,7 +67,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     }
 
     public static String readClassPathFileToString(String pathName) throws IOException {
-        InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(pathName);
+        InputStream resourceAsStream = FileUtilsExt.class.getClassLoader().getResourceAsStream(pathName);
         String str = IOUtils.toString(resourceAsStream);
         return str;
     }

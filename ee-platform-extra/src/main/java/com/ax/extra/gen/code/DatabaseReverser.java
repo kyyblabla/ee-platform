@@ -74,10 +74,14 @@ public class DatabaseReverser {
      * @return
      * @throws SQLException
      */
-    public List<GenTable> getTables(String databaseName) throws SQLException {
-        return getTableNames(databaseName).stream()
-                .map(tableName -> getTable(databaseName, tableName))
-                .collect(Collectors.toList());
+    public List<GenTable> getTables(String databaseName) {
+        try {
+            return getTableNames(databaseName).stream()
+                    .map(tableName -> getTable(databaseName, tableName))
+                    .collect(Collectors.toList());
+        } catch (SQLException e) {
+            throw Exceptions.unchecked(e);
+        }
     }
 
     /**
@@ -89,7 +93,7 @@ public class DatabaseReverser {
      */
     public List<String> getTableNames(String databaseName) throws SQLException {
         DatabaseMetaData metaData = conn.getMetaData();
-        ResultSet rs = metaData.getTables(null, databaseName, "%", new String[]{"TABLE"});
+        ResultSet rs = metaData.getTables(databaseName, databaseName, "%", new String[]{"TABLE"});
         List<String> tables = Lists.newArrayList();
         while (rs.next()) {
             tables.add(rs.getString("TABLE_NAME"));
@@ -107,7 +111,7 @@ public class DatabaseReverser {
      */
     public List<GenColumn> getColumns(String databaseName, String tableName) throws SQLException {
         DatabaseMetaData metaData = conn.getMetaData();
-        ResultSet rs = metaData.getColumns(null, databaseName, tableName, "%");
+        ResultSet rs = metaData.getColumns(databaseName, databaseName, tableName, "%");
         List<GenColumn> columns = Lists.newArrayList();
         while (rs.next()) {
             GenColumn column = new GenColumn();
@@ -146,7 +150,7 @@ public class DatabaseReverser {
      */
     private List<String> getPrimaryKey(String databaseName, String tableName) throws SQLException {
         DatabaseMetaData metaData = conn.getMetaData();
-        ResultSet rs = metaData.getPrimaryKeys(null, databaseName, tableName);
+        ResultSet rs = metaData.getPrimaryKeys(databaseName, databaseName, tableName);
         List<String> keys = Lists.newArrayList();
         while (rs.next()) {
             keys.add(rs.getString("COLUMN_NAME"));
@@ -156,7 +160,7 @@ public class DatabaseReverser {
 
 
     /**
-     * 下换线命名转化为驼峰命名
+     * 下换线命名转化为驼峰命名,同时大写全部转为小写
      *
      * @param str
      * @return
@@ -165,7 +169,7 @@ public class DatabaseReverser {
         if (StringUtils.isBlank(str)) {
             return "";
         }
-        return Arrays.stream(str.split("_"))
+        return Arrays.stream(StringUtils.lowerCase(str).split("_"))
                 .map(String::trim)
                 .map(StringUtils::capitalize)
                 .collect(Collectors.joining());

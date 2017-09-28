@@ -18,6 +18,10 @@
             <groupId>com.ax</groupId>
             <artifactId>ee-platform-common-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ax</groupId>
+            <artifactId>ee-platform-extra</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

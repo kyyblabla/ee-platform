@@ -135,14 +135,15 @@ public class JaxbMapper {
 
     protected static JAXBContext getJaxbContext(Class clazz) {
         JAXBContext jaxbContext = jaxbContexts.get(clazz);
-        if (jaxbContext == null) {
-            try {
-                jaxbContext = JAXBContext.newInstance(clazz, CollectionWrapper.class);
-                jaxbContexts.putIfAbsent(clazz, jaxbContext);
-            } catch (JAXBException ex) {
-                throw new RuntimeException("Could not instantiate JAXBContext for class [" + clazz
-                        + "]: " + ex.getMessage(), ex);
-            }
+        if (jaxbContext != null) {
+            return jaxbContext;
+        }
+        try {
+            jaxbContext = JAXBContext.newInstance(clazz, CollectionWrapper.class);
+            jaxbContexts.putIfAbsent(clazz, jaxbContext);
+        } catch (JAXBException ex) {
+            throw new RuntimeException("Could not instantiate JAXBContext for class [" + clazz
+                    + "]: " + ex.getMessage(), ex);
         }
         return jaxbContext;
     }

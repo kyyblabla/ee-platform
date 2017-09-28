@@ -18,10 +18,9 @@ public class XmlUtil {
 
 
     public static <T> T fileToObject(String filePath, Class<T> clazz) {
-        try {
-            Resource resource = new ClassPathResource(filePath);
-            InputStream is = resource.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+        Resource resource = new ClassPathResource(filePath);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream(), "UTF-8"))) {
             StringBuilder sb = new StringBuilder();
             while (true) {
                 String line = br.readLine();
@@ -29,12 +28,6 @@ public class XmlUtil {
                     break;
                 }
                 sb.append(line).append("\r\n");
-            }
-            if (is != null) {
-                is.close();
-            }
-            if (br != null) {
-                br.close();
             }
             return (T) JaxbMapper.fromXml(sb.toString(), clazz);
         } catch (IOException e) {

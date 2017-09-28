@@ -20,22 +20,19 @@ public class Person {
     private Name dn;
 
     @Attribute(name = "telephoneNumber")
-    private String telephone;
-
-    @Attribute(name = "idNumber")
-    private Long id;
+    private String phone;
 
     @Attribute(name = "uid")
-    private String loginMame;
+    private String uid;
 
     @Attribute(name = "userPassword")
     private String password;
 
     @Attribute(name = "cn")
-    private String commonName;
+    private String cnName;
 
     @Attribute(name = "sn")
-    private String simpleName;
+    private String enName;
 
     @Attribute(name = "description")
     private String description;

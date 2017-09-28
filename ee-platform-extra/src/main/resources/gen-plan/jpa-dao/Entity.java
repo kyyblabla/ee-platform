@@ -1,12 +1,14 @@
-package ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity
+package ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity;
+
+import java.time.*;
 
 <#assign createDate = .now>
 /**
- * ${table.tableComment}
+ * ${table.tableComment!""}
  * Table Name: ${table.tableName}
  * Created by ${createUser!"AxCodeGen"} on ${createDate?string["yyyy/MM/dd"]}.
  */
-public class ${className} {
+public class ${table.className} {
 
 <#list table.columns as column>
     private ${column.attributeType} ${column.attributeName};
@@ -26,10 +28,9 @@ public class ${className} {
 </#list>
 
     public String toString() {
-        return "${className}"+
+        return "${table.className}"+
 <#list table.columns as column>
-        "${column.attributeName}=" + ${column.attributeName} <#if column_has_next>+ ", " +<#else>;</#if>
+        "${column.attributeName}=" + ${column.attributeName} <#if column_has_next>+ ", " +<#else>+")";</#if>
 </#list>
-        +")";
     }
 }

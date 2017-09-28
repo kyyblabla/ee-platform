@@ -1,6 +1,6 @@
 package com.ax.extra.gen.code;
 
-import com.ax.common.util.FileUtils;
+import com.ax.common.util.FileUtilsExt;
 import com.ax.extra.gen.config.GenConfig;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class CodeGeneratorHelper {
      * @return
      */
     public static String getTemplateTypeFromPathName(String pathName) {
-        String fileNameWithoutSuffix = FileUtils.getFileNameWithoutSuffixByPathName(pathName);
+        String fileNameWithoutSuffix = FileUtilsExt.getFileNameWithoutSuffixByPathName(pathName);
         if (StringUtils.equals("Entity", fileNameWithoutSuffix)) {
             return "Entity";
         }

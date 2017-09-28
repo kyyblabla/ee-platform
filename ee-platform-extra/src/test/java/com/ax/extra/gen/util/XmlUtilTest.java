@@ -1,6 +1,6 @@
 package com.ax.extra.gen.util;
 
-import com.ax.common.util.FileUtils;
+import com.ax.common.util.FileUtilsExt;
 import com.ax.extra.gen.config.GenConfig;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class XmlUtilTest {
     @Test
     public void stringToObject() throws Exception {
 
-        String s = FileUtils.readClassPathFileToString("gen-config.xml");
+        String s = FileUtilsExt.readClassPathFileToString("gen-config.xml");
         GenConfig genConfig = XmlUtil.stringToObject(s, GenConfig.class);
         Assert.assertTrue(genConfig != null);
 

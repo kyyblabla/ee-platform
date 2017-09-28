@@ -4,6 +4,26 @@ objectclass: domain
 objectclass: extensibleObject
 dc: spring
 
+dn: ou=groups,dc=spring,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+
+dn: cn=ROLE_USER,ou=groups,dc=spring,dc=org
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: ROLE_USER
+uniqueMember: cn=Some Person,ou=company1,c=Sweden,dc=spring,dc=org
+uniqueMember: cn=Some Person2,ou=company1,c=Sweden,dc=spring,dc=org
+uniqueMember: cn=Some Person,ou=company1,c=Sweden,dc=spring,dc=org
+uniqueMember: cn=Some Person3,ou=company1,c=Sweden,dc=spring,dc=org
+
+dn: cn=ROLE_ADMIN,ou=groups,dc=spring,dc=org
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: ROLE_ADMIN
+uniqueMember: cn=Some Person2,ou=company1,c=Sweden,dc=spring,dc=org
+
 dn: c=Sweden,dc=spring,dc=org
 objectclass: top
 objectclass: country
@@ -16,46 +36,26 @@ objectclass: organizationalUnit
 ou: company1
 description: First company in Sweden
 
-dn: ou=groups,dc=spring,dc=org
-objectclass: top
-objectclass: organizationalUnit
-ou: groups
-
-dn: cn=ROLE_USER,ou=groups,dc=spring,dc=org
-objectclass: top
-objectclass: groupOfUniqueNames
-cn: ROLE_USER
-uniqueMember: cn=alice.smith,ou=company1,c=Sweden,dc=spring,dc=org
-uniqueMember: cn=bob.smith,ou=company1,c=Sweden,dc=spring,dc=org
-
-dn: cn=ROLE_ADMIN,ou=groups,dc=spring,dc=org
-objectclass: top
-objectclass: groupOfUniqueNames
-cn: ROLE_ADMIN
-uniqueMember: cn=alice.smith,ou=company1,c=Sweden,dc=spring,dc=org
-
-dn: uid=alice.smith,ou=company1,c=Sweden,dc=spring,dc=org
+dn: cn=Alice Smith,ou=company1,c=Sweden,dc=spring,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 uid: alice.smith
 userPassword: password
-idNumber: 100
 cn: Alice Smith
 sn: Alice Smith
 description: Sweden, Company1, Alice Smith
 telephoneNumber: 15800822331
 
-dn: uid=bob.smith,ou=company1,c=Sweden,dc=spring,dc=org
+dn: cn=Bob Smith,ou=company1,c=Sweden,dc=spring,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
 uid: bob.smith
-idNumber: 101
 userPassword: password
 cn: Bob Smith
 sn: Bob Smith
-description: Sweden, Company1, Bob Smith
+description: Sweden, Company1, Some Person2
 telephoneNumber: 15800822332

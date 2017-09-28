@@ -1,16 +1,12 @@
 package ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.controller;
 
 
-import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity.${className};
-import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.dao.${className}Dao;
-import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.service.${className}Service;
+import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity.${table.className};
+import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.dao.${table.className}Dao;
+import ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.service.${table.className}Service;
 
+import com.ax.common.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,13 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by ${createUser!"AxCodeGen"} on ${createDate?string["yyyy/MM/dd"]}.
  */
+@RequestMapping("/${table.className}")
 @RestController
-public class ${className}Controller extends BaseController {
+public class ${table.className}Controller extends BaseController {
 
     @Autowired
-    private ${className}Service ${classNameFll}Dao;
+    private ${table.className}Service ${table.classNameFll}Dao;
 
     @Autowired
-    private ${className}Service ${classNameFll}Service;
+    private ${table.className}Service ${table.classNameFll}Service;
 
 }

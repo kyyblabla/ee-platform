@@ -7,12 +7,12 @@ import org.junit.Test;
 /**
  * Created by kyy on 2017/9/23.
  */
-public class FileUtilsTest {
+public class FileUtilsExtTest {
 
 
     @Test
     public void readClassPathFileToString() throws Exception {
-        Assert.assertEquals("hello", FileUtils.readClassPathFileToString("test.txt"));
+        Assert.assertEquals("hello", FileUtilsExt.readClassPathFileToString("test.txt"));
     }
 
 }

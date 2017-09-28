@@ -18,11 +18,6 @@ import java.util.Map;
  */
 public class FreeMarkers {
 
-
-    public static String renderString(String templateString, Map<String, Object> model) {
-        return renderString(templateString, model);
-    }
-
     public static String renderString(String templateString, Object model) {
         try {
             Template t = new Template("none", new StringReader(templateString), new Configuration());

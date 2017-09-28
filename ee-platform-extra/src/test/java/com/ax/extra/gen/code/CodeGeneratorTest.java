@@ -1,7 +1,7 @@
 package com.ax.extra.gen.code;
 
 import com.alibaba.fastjson.JSON;
-import com.ax.common.util.FileUtils;
+import com.ax.common.util.FileUtilsExt;
 import com.ax.extra.gen.model.GenScheme;
 import com.ax.extra.gen.model.GenTable;
 
@@ -63,7 +63,7 @@ public class CodeGeneratorTest {
         genScheme.setSubModuleName("");
         genScheme.setName("test");
         genScheme.setReplaceFile(true);
-        genScheme.setTable(JSON.parseObject(FileUtils.readClassPathFileToString("user.json"), GenTable.class));
+        genScheme.setTable(JSON.parseObject(FileUtilsExt.readClassPathFileToString("user.json"), GenTable.class));
         return genScheme;
     }
 
