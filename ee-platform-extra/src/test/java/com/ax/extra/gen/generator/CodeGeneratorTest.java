@@ -1,11 +1,9 @@
-package com.ax.extra.gen.code;
+package com.ax.extra.gen.generator;
 
 import com.alibaba.fastjson.JSON;
 import com.ax.common.util.FileUtilsExt;
 import com.ax.extra.gen.model.GenScheme;
 import com.ax.extra.gen.model.GenTable;
-
-import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,18 +16,18 @@ import java.io.IOException;
 public class CodeGeneratorTest {
 
 
-    private static CodeGenerator codeGenerator;
+    private static AbstractGenerator codeGenerator;
 
     @BeforeClass
     public static void beforeClass() {
-        codeGenerator = new CodeGenerator("/Users/kyy/test");
+        codeGenerator = new LocalFileGenerator("/Users/kyy/test");
     }
 
 
     @Test
     public void generateTemplateToFile() throws Exception {
         GenScheme genScheme = getGenScheme();
-        codeGenerator.generateTemplateToFile(genScheme, "gen-plan/jpa-dao/Entity.java");
+        codeGenerator.generateCodeFromScheme(genScheme, "gen-plan/jpa-dao/Entity.java");
     }
 
     @Test
@@ -46,13 +44,6 @@ public class CodeGeneratorTest {
         genScheme.setGenPlan("crud-jpa");
         codeGenerator.generate(genScheme);
 
-    }
-
-    @Test
-    public void getTemplatePathNames() throws Exception {
-        assertEquals(codeGenerator.getTemplatePathNamesByGenPlan("jpa-dao").size(), 2);
-        assertEquals(codeGenerator.getTemplatePathNamesByGenPlan("crud").size(), 2);
-        assertEquals(codeGenerator.getTemplatePathNamesByGenPlan("crud-jpa").size(), 4);
     }
 
 

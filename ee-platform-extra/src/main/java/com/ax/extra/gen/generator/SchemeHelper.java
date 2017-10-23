@@ -1,8 +1,6 @@
-package com.ax.extra.gen.code;
+package com.ax.extra.gen.generator;
 
-import com.alibaba.fastjson.JSON;
 import com.ax.extra.gen.model.GenScheme;
-import lombok.Data;
 
 /**
  * Created by kyy on 2017/9/25.

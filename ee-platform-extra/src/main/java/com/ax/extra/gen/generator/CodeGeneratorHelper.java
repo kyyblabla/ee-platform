@@ -1,7 +1,7 @@
-package com.ax.extra.gen.code;
+package com.ax.extra.gen.generator;
 
 import com.ax.common.util.FileUtilsExt;
-import com.ax.extra.gen.config.GenConfig;
+import com.ax.extra.gen.model.GenConfig;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

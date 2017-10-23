@@ -1,49 +1,67 @@
-package com.ax.extra.gen.code;
+package com.ax.extra.gen.generator;
 
 import com.ax.common.util.FileUtilsExt;
-import com.ax.extra.gen.config.GenConfig;
+import com.ax.extra.gen.generator.CodeGeneratorHelper;
+import com.ax.extra.gen.model.GenConfig;
 import com.ax.extra.gen.model.GenScheme;
 import com.ax.extra.gen.util.FreeMarkers;
 import com.ax.extra.gen.util.XmlUtil;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
- * Created by kyy on 2017/9/14.
+ * Created by kyy on 2017/10/23.
  */
 @Slf4j
-public class CodeGenerator {
+public abstract class AbstractGenerator {
 
-    private String baseDir;
 
-    private GenConfig genConfig;
-
+    protected String baseDir;
+    protected GenConfig genConfig;
     public static final String CODE_TEMPLATE_BASE_DIR = "gen-plan";
 
-    public CodeGenerator(String baseDir, GenConfig genConfig) {
-        this.genConfig = genConfig;
+    public AbstractGenerator(String baseDir) {
         this.baseDir = baseDir;
-    }
-
-
-    public CodeGenerator(String baseDir) {
-        this(baseDir, XmlUtil.fileToObject("gen-config-default.xml", GenConfig.class));
-    }
-
-    public CodeGenerator(String baseDir, String genConfigPath) {
-        //加载默认配置
-        this(baseDir);
-        if (!StringUtils.equals("gen-config-default.xml", genConfigPath)) {
-            //加入到默认配置
-            GenConfig extGenConfig = XmlUtil.fileToObject(genConfigPath, GenConfig.class);
-            this.genConfig.getPlans().addAll(extGenConfig.getPlans());
+        this.genConfig = XmlUtil.fileToObject("gen-config-default.xml", GenConfig.class);
+        GenConfig userConfig = XmlUtil.fileToObject("gen-config.xml", GenConfig.class);
+        if (userConfig != null) {
+            this.genConfig.getPlans().addAll(userConfig.getPlans());
         }
     }
 
+    public void generate(GenScheme scheme) {
+        onStart(scheme);
+        List<String> templatePathNames = getTemplatePathNamesByGenPlan(scheme.getGenPlan());
+        if (templatePathNames.isEmpty()) {
+            log.warn("{}未找到生成类别{}包含的模板文件", scheme.getName(), scheme.getGenPlan());
+            return;
+        }
+        templatePathNames.forEach(templatePathName -> {
+            try {
+                String codeContent = generateCodeFromScheme(scheme, templatePathName);
+                onGenerated(scheme, templatePathName, codeContent);
+            } catch (Exception e) {
+                log.error("代码{}生成失败", templatePathName);
+                log.error(e.getMessage(), e);
+            }
+        });
+        onFinished(scheme);
+    }
+
+    protected void onStart(GenScheme genScheme) {
+    }
+
+    protected abstract void onGenerated(GenScheme genScheme, String templateName, String coneContent);
+
+    protected void onFinished(GenScheme genScheme) {
+    }
 
     /**
      * 通过模板生成代码
@@ -52,51 +70,10 @@ public class CodeGenerator {
      * @param templatePathName 模板文件路径
      * @throws IOException
      */
-    public void generateTemplateToFile(GenScheme scheme, String templatePathName) throws IOException {
-
-        String templateType = CodeGeneratorHelper.getTemplateTypeFromPathName(templatePathName);
-        String savePathName = getSavePathNameFromScheme(scheme, templateType);
-
-        if (scheme.getReplaceFile()) {
-            FileUtilsExt.deleteFile(savePathName);
-        }
-        // 创建并写入文件
-        if (FileUtilsExt.createFile(savePathName)) {
-            String codeTemplate = FileUtilsExt.readClassPathFileToString(CODE_TEMPLATE_BASE_DIR + File.separator + templatePathName);
-            String content = FreeMarkers.renderString(codeTemplate, scheme);
-            FileUtilsExt.writeToFile(savePathName, content);
-            log.debug("文件创建成功{}", savePathName);
-        } else {
-            log.debug("文件创建失败{}", savePathName);
-        }
-
-    }
-
-
-    public List<String> getTemplatePathNamesByGenPlan(String genPlan) {
-        List<String> templatePathNames = CodeGeneratorHelper.getTemplatePathNamesByGenPlan(genConfig, genPlan);
-        return templatePathNames;
-    }
-
-    /**
-     * @param scheme
-     */
-    public void generate(GenScheme scheme) {
-
-        List<String> templatePathNames = getTemplatePathNamesByGenPlan(scheme.getGenPlan());
-        if (templatePathNames.isEmpty()) {
-            log.warn("{}未找到生成类别{}包含的模板文件", scheme.getName(), scheme.getGenPlan());
-            return;
-        }
-
-        templatePathNames.forEach(templatePathName -> {
-            try {
-                generateTemplateToFile(scheme, templatePathName);
-            } catch (Exception e) {
-                log.error("代码文件{}生成失败", templatePathName);
-                log.error(e.getMessage(), e);
-            }
-        });
+    public String generateCodeFromScheme(GenScheme scheme, String templatePathName) throws IOException {
+        //渲染代码模板
+        String codeTemplate = FileUtilsExt.readClassPathFileToString(CODE_TEMPLATE_BASE_DIR + File.separator + templatePathName);
+        return FreeMarkers.renderString(codeTemplate, scheme);
     }
 
     /**
@@ -106,11 +83,10 @@ public class CodeGenerator {
      * @param scheme
      * @return
      */
-    private String getSavePathNameFromScheme(GenScheme scheme, String codeTemplateType) {
-
+    protected String getSavePathNameFromScheme(GenScheme scheme, String codeTemplateName) {
+        String codeTemplateType = CodeGeneratorHelper.getTemplateTypeFromPathName(codeTemplateName);
         String filePath = StringUtils.join(
-                baseDir,
-                File.separator, "src",
+                "src",
                 File.separator, getSourceRootPath(codeTemplateType),
                 File.separator, "java",
                 File.separator, scheme.getPackageName(),
@@ -122,6 +98,12 @@ public class CodeGenerator {
         filePath = StringUtils.replacePattern(filePath, "\\.", File.separator);
         String fileName = StringUtils.join(scheme.getTable().getClassName(), StringUtils.capitalize(StringUtils.trimToEmpty(codeTemplateType).replace("Entity", "")), ".java");
         return filePath + File.separator + fileName;
+    }
+
+
+    private List<String> getTemplatePathNamesByGenPlan(String genPlan) {
+        List<String> templatePathNames = CodeGeneratorHelper.getTemplatePathNamesByGenPlan(genConfig, genPlan);
+        return templatePathNames;
     }
 
     /**
@@ -153,5 +135,6 @@ public class CodeGenerator {
     private String getSourceRootPath(String codeTemplateType) {
         return StringUtils.endsWith(codeTemplateType, "Test") ? "test" : "main";
     }
+
 
 }

@@ -1,6 +1,5 @@
-package com.ax.extra.gen.code;
+package com.ax.extra.gen.generator;
 
-import com.alibaba.fastjson.JSON;
 import com.ax.extra.gen.model.GenTable;
 import org.junit.Assert;
 import org.junit.Test;

@@ -6,20 +6,17 @@ import com.ax.common.security.JwtAuthUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -76,7 +73,7 @@ public class BaseController {
         }
         if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
-            if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")) {
+            if ("127.0.0.1".equals(ipAddress) || "0:0:0:0:0:0:0:1".equals(ipAddress)) {
                 // 根据网卡取本机配置的IP
                 try {
                     ipAddress = InetAddress.getLocalHost().getHostAddress();
@@ -103,26 +100,23 @@ public class BaseController {
     }
 
 
-    public void writeFile(HttpServletResponse response, File file) {
+    public void responseFile(HttpServletResponse response, File file) {
         try (FileInputStream fs = new FileInputStream(file)) {
-            writeFile(response, fs, file.getName());
+            responseFile(response, fs, file.getName());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
     }
 
-    public void writeFile(HttpServletResponse response, InputStream inputStream, String fileName) {
+    public void responseFile(HttpServletResponse response, byte[] bytes, String fileName) {
+        responseFile(response, new ByteArrayInputStream(bytes), fileName);
+    }
+
+    public void responseFile(HttpServletResponse response, InputStream inputStream, String fileName) {
         response.setContentType("application/octet-stream; charset=utf-8");
         response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
         try {
-            ServletOutputStream outputStream = response.getOutputStream();
-            byte[] b = new byte[2048];
-            int length;
-            while ((length = inputStream.read(b)) > 0) {
-                outputStream.write(b, 0, length);
-            }
-            outputStream.close();
-            inputStream.close();
+            IOUtils.copy(inputStream, response.getOutputStream());
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }

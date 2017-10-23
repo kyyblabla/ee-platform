@@ -1,4 +1,4 @@
-package com.ax.extra.gen.config;
+package com.ax.extra.gen.model;
 
 import com.ax.extra.gen.model.GenScheme;
 import lombok.Data;

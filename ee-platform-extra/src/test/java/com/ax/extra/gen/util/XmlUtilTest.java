@@ -1,7 +1,7 @@
 package com.ax.extra.gen.util;
 
 import com.ax.common.util.FileUtilsExt;
-import com.ax.extra.gen.config.GenConfig;
+import com.ax.extra.gen.model.GenConfig;
 import org.junit.Assert;
 import org.junit.Test;
 

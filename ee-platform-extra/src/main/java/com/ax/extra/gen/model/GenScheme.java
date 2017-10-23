@@ -20,6 +20,8 @@ public class GenScheme {
     private Boolean replaceFile = true;    // 是否替换现有文件
     private String genPlan; //生成方案
 
+    private Boolean directCreateFile = false;//是否直接生成文件
+
     private GenTable table;
 
 
@@ -52,5 +54,5 @@ public class GenScheme {
     public String getGenPlan() {
         return genPlan;
     }
-    
+
 }

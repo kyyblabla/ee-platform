@@ -1,4 +1,4 @@
-package com.ax.extra.gen.code;
+package com.ax.extra.gen.generator;
 
 import com.ax.common.util.Exceptions;
 import com.ax.extra.gen.convert.DefaultTypeConvert;
