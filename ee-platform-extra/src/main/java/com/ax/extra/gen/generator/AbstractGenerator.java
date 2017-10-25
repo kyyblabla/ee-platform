@@ -1,20 +1,16 @@
 package com.ax.extra.gen.generator;
 
-import com.ax.common.util.FileUtilsExt;
-import com.ax.extra.gen.generator.CodeGeneratorHelper;
+import com.ax.common.tool.util.FileUtilsExt;
 import com.ax.extra.gen.model.GenConfig;
 import com.ax.extra.gen.model.GenScheme;
 import com.ax.extra.gen.util.FreeMarkers;
 import com.ax.extra.gen.util.XmlUtil;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Created by kyy on 2017/10/23.

@@ -1,4 +1,4 @@
-package com.ax.common.util;
+package com.ax.common.tool.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;

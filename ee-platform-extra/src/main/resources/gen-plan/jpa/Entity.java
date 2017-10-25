@@ -1,16 +1,23 @@
 package ${packageName}.${moduleName}<#if subModuleName != "">.${subModuleName}</#if>.entity;
 
 import java.time.*;
-
+import javax.persistence.Entity;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 <#assign createDate = .now>
 /**
  * ${table.tableComment!""}
  * Table Name: ${table.tableName}
  * Created by ${createUser!"AxCodeGen"} on ${createDate?string["yyyy/MM/dd"]}.
  */
+@Entity
 public class ${table.className} {
 
 <#list table.columns as column>
+    <#if subModuleName != "">
+    @Id
+    @GeneratedValue
+    </#if>
     private ${column.attributeType} ${column.attributeName};
 </#list>
 
@@ -27,6 +34,7 @@ public class ${table.className} {
 
 </#list>
 
+    @Override
     public String toString() {
         return "${table.className}"+
 <#list table.columns as column>

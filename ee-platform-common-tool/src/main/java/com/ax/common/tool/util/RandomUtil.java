@@ -1,4 +1,4 @@
-package com.ax.common.util;
+package com.ax.common.tool.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

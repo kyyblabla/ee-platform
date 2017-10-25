@@ -1,13 +1,12 @@
 package com.ax.extra.gen.util;
 
-import com.ax.common.util.JaxbMapper;
+import com.ax.common.tool.util.JaxbMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**

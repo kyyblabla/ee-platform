@@ -17,7 +17,7 @@
  * along with springuni-particles.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.ax.common.util;
+package com.ax.common.tool.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
-import static com.ax.common.util.RandomUtil.nextInt;
+import static com.ax.common.tool.util.RandomUtil.nextInt;
 import static java.time.ZoneOffset.UTC;
 import static java.time.temporal.ChronoUnit.MILLIS;
 

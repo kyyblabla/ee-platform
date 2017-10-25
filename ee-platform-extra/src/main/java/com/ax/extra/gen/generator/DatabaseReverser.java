@@ -1,6 +1,6 @@
 package com.ax.extra.gen.generator;
 
-import com.ax.common.util.Exceptions;
+import com.ax.common.tool.util.Exceptions;
 import com.ax.extra.gen.convert.DefaultTypeConvert;
 import com.ax.extra.gen.convert.TypeConvert;
 import com.ax.extra.gen.model.GenColumn;

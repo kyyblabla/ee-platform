@@ -34,7 +34,7 @@ public class SessionService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("用户名不存在 '%s'.", username));
         }
-        return JwtAuthUserDetailsFactory.create(user);
+        return JwtAuthUserDetailsFactory.create(user, null);
     }
 
     public String login(SessionDto sessionDto) {

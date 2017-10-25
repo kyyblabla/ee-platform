@@ -9,10 +9,7 @@ import java.time.LocalDateTime;
  */
 @Data
 public class ExtendEntity extends BaseEntity {
-
-    private String createdBy;
-    private String lastUpdatedBy;
-
+    
     /**
      * 版本号，用于乐观锁
      */
@@ -23,5 +20,5 @@ public class ExtendEntity extends BaseEntity {
      */
     private Boolean deleted;
 
-    
+
 }

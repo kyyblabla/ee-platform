@@ -2,6 +2,8 @@ package com.ax.common.entity;
 
 import lombok.Data;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 /**
@@ -10,8 +12,10 @@ import java.time.LocalDateTime;
 @Data
 public class BaseEntity {
 
-    private Long id;
     private LocalDateTime created;
     private LocalDateTime lastUpdated;
-    
+
+    private Long createdBy;
+    private Long lastUpdatedBy;
+
 }

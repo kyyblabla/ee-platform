@@ -1,15 +1,12 @@
 package com.ax.extra.gen.util;
 
-import com.ax.common.util.Exceptions;
+import com.ax.common.tool.util.Exceptions;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.Map;
 
 
 /**

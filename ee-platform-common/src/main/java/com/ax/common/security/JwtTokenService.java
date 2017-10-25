@@ -1,6 +1,6 @@
 package com.ax.common.security;
 
-import com.ax.common.util.IdentityGenerator;
+import com.ax.common.tool.util.IdentityGenerator;
 import io.jsonwebtoken.*;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -9,10 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
-import javax.websocket.Session;
 import java.util.*;
 import java.util.stream.Collectors;
 

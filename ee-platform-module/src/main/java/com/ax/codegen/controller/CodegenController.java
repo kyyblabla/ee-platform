@@ -1,6 +1,6 @@
 package com.ax.codegen.controller;
 
-import com.ax.common.util.BeanMapper;
+import com.ax.common.tool.util.BeanMapper;
 import com.ax.common.web.BaseController;
 import com.ax.extra.gen.generator.DatabaseReverser;
 import com.ax.extra.gen.generator.LocalFileGenerator;

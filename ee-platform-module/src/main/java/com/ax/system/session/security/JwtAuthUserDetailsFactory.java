@@ -17,11 +17,12 @@ public class JwtAuthUserDetailsFactory {
 
     }
 
-    public static JwtAuthUserDetails create(User user) {
-        List<SimpleGrantedAuthority> collect = Arrays.stream(user.getRoles().split(",")).map(SimpleGrantedAuthority::new)
+    public static JwtAuthUserDetails create(User user, List<String> roles) {
+        List<SimpleGrantedAuthority> collect = roles.stream()
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         JwtAuthUserDetails jwtAuthUserDetails = new
-                JwtAuthUserDetails(user.getId(), user.getName(), user.getPassword(), collect);
+                JwtAuthUserDetails(user.getId(), user.getUserName(), user.getPassowrd(), collect);
         return jwtAuthUserDetails;
     }
 

@@ -1,6 +1,6 @@
 package com.ax.extra.gen.generator;
 
-import com.ax.common.util.FileUtilsExt;
+import com.ax.common.tool.util.FileUtilsExt;
 import com.ax.extra.gen.model.GenScheme;
 import lombok.extern.slf4j.Slf4j;
 

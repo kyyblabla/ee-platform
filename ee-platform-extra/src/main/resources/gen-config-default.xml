@@ -3,29 +3,23 @@
 
     <!--生成计划 begin-->
     <plans>
-        <plan name="jpa-dao" comment="jpa类型的dao">
-            <template>jpa-dao/Entity.java</template>
-            <template>jpa-dao/EntityDao.java</template>
+        <plan name="jpa-entity" comment="jpa类型的entity">
+            <template>jpa/Entity.java</template>
         </plan>
-        <plan name="jpa-dao-test" comment="jpa类型的dao测试">
-            <template>jpa-dao-test/EntityDaoTest.java</template>
+        <plan name="jpa" comment="jpa类型的dao">
+            <template>jpa/Entity.java</template>
+            <template>jpa/EntityDao.java</template>
+            <template>jpa/EntityDaoTest.java</template>
         </plan>
         <plan name="crud" comment="crud使用jpa">
             <template>crud/EntityService.java</template>
+            <template>crud/EntityServiceTest.java</template>
             <template>crud/EntityController.java</template>
-        </plan>
-        <plan name="crud-test" comment="crud使用jpa">
-            <template>crud-test/EntityServiceTest.java</template>
-            <template>crud-test/EntityControllerTest.java</template>
+            <template>crud/EntityControllerTest.java</template>
         </plan>
         <plan name="crud-jpa" comment="crud使用jpa">
             <template>REF:crud</template>
-            <template>REF:jpa-dao</template>
-        </plan>
-        <plan name="crud-jpa-with-test" comment="crud使用jpa+测试">
-            <template>REF:crud-jpa</template>
-            <template>REF:jpa-dao-test</template>
-            <template>REF:crud-test</template>
+            <template>REF:jpa</template>
         </plan>
     </plans>
     <!--生成计划 end-->

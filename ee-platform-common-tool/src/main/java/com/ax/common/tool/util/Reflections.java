@@ -1,4 +1,4 @@
-package com.ax.common.util;
+package com.ax.common.tool.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
