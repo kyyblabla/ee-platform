@@ -31,12 +31,12 @@
             <artifactId>ee-platform-common</artifactId>
         </dependency>
 
+        <!--用于插入数据源测试-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <scope>test</scope>
         </dependency>
-
-        <!--用于测试-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
