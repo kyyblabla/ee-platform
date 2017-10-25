@@ -30,7 +30,6 @@ public class ZipFileGenerator extends AbstractGenerator {
             String savePathName = getSavePathNameFromScheme(genScheme, templateName);
             zip.putNextEntry(new ZipEntry(savePathName));
             IOUtils.write(coneContent.toString(), zip, "UTF-8");
-            IOUtils.closeQuietly(zip);
             zip.closeEntry();
         } catch (Exception e) {
         }

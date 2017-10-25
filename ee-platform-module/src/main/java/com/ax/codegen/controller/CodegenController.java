@@ -62,7 +62,7 @@ public class CodegenController extends BaseController {
         scheme.setTable(table);
         ZipFileGenerator zipFileGenerator = new ZipFileGenerator();
         zipFileGenerator.generate(scheme);
-        this.responseFile(response, zipFileGenerator.getZipBytes(), "gen-code.zip");
+        this.responseFile(response, zipFileGenerator.getZipBytes(), "code.zip");
     }
 
     @PostMapping("/gen/local")

@@ -31,7 +31,7 @@ public abstract class AbstractGenerator {
         this.baseDir = baseDir;
         this.genConfig = XmlUtil.fileToObject("gen-config-default.xml", GenConfig.class);
         GenConfig userConfig = XmlUtil.fileToObject("gen-config.xml", GenConfig.class);
-        if (userConfig != null) {
+        if (userConfig != null && userConfig.getPlans() != null) {
             this.genConfig.getPlans().addAll(userConfig.getPlans());
         }
     }

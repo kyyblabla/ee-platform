@@ -18,10 +18,8 @@
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
     </properties>
 
-
     <modules>
         <module>ee-platform-common</module>
-        <module>ee-platform-common-web</module>
         <module>ee-platform-module</module>
         <module>ee-platform-bootstrap</module>
         <module>ee-platform-extra</module>
@@ -54,14 +52,10 @@
 
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>com.ax</groupId>
                 <artifactId>ee-platform-common</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ax</groupId>
-                <artifactId>ee-platform-common-web</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
