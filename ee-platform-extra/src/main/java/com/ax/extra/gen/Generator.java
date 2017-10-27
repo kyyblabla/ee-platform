@@ -6,6 +6,8 @@ import com.ax.extra.gen.util.GenUtil;
 import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -14,21 +16,27 @@ import java.util.zip.ZipOutputStream;
 public class Generator {
 
     private DatabaseUtil databaseUtil;
+    private String dbName;
+    private String basePackage;
 
-    public Generator(DatabaseUtil databaseUtil) {
+    public Generator(DatabaseUtil databaseUtil, String dbName, String basePakage) {
         this.databaseUtil = databaseUtil;
+        this.dbName = dbName;
+        this.basePackage = basePakage;
     }
 
-    public byte[] genCode(String dbName, String tableName, String basePackage, String moduleName, String subModuleName) {
+    public byte[] genCode(List<String> tableNames, String moduleName, String subModuleName) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
-        GenScheme scheme = buildGenScheme(dbName, tableName, basePackage, moduleName, subModuleName);
-        GenUtil.generatorCode(scheme, zip);
+        tableNames.forEach(tableName -> {
+            GenScheme scheme = buildGenScheme(tableName, moduleName, subModuleName);
+            GenUtil.generatorCode(scheme, zip);
+        });
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }
 
-    private GenScheme buildGenScheme(String dbName, String tableName, String basePackage, String moduleName, String subModuleName) {
+    private GenScheme buildGenScheme(String tableName, String moduleName, String subModuleName) {
         GenScheme scheme = new GenScheme();
         scheme.setTable(databaseUtil.getTable(dbName, tableName));
         scheme.setModuleName(moduleName);

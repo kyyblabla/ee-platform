@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
-@RequestMapping("/Organization")
+@RequestMapping("/organization")
 @RestController
 public class OrganizationController extends BaseController {
 
     @Autowired
-    private OrganizationService organizationDao;
+    private OrganizationDao organizationDao;
 
     @Autowired
     private OrganizationService organizationService;

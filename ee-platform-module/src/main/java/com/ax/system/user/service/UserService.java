@@ -9,13 +9,14 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Service
 public class UserService extends BaseService<User, UserDao> {
 
-    public User findByUserName(String userName) {
-        return dao.findByUserName(userName);
-    }
 
+    public User findByUserName(String username) {
+
+        return dao.findByUserName(username);
+    }
 }

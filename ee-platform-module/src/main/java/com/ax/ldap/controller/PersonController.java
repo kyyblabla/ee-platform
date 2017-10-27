@@ -1,7 +1,7 @@
-package com.ax.system.ldap.controller;
+package com.ax.ldap.controller;
 
-import com.ax.system.ldap.dao.PersonRepository;
-import com.ax.system.ldap.entity.Person;
+import com.ax.ldap.dao.PersonRepository;
+import com.ax.ldap.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

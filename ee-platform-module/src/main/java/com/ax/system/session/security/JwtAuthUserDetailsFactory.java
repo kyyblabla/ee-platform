@@ -4,7 +4,6 @@ import com.ax.common.security.JwtAuthUserDetails;
 import com.ax.system.user.entity.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,7 @@ public class JwtAuthUserDetailsFactory {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         JwtAuthUserDetails jwtAuthUserDetails = new
-                JwtAuthUserDetails(user.getId(), user.getUserName(), user.getPassowrd(), collect);
+                JwtAuthUserDetails(user.getId(), user.getUserName(), user.getPassword(), collect);
         return jwtAuthUserDetails;
     }
 

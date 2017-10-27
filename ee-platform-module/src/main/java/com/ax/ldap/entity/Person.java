@@ -1,4 +1,4 @@
-package com.ax.system.ldap.entity;
+package com.ax.ldap.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

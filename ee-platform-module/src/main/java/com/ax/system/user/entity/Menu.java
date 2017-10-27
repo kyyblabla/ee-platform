@@ -1,22 +1,25 @@
 package com.ax.system.user.entity;
 
+import java.time.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.*;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 /**
- * Table Name: menu
- * Created by AxCodeGen on 2017/10/25.
+ * 
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Entity
+@Table(name="sys_menu")
 public class Menu {
 
     @Id
+    @GeneratedValue
     private Long id;
-    private String menuCode;
-    private String menuTitle;
-    private String menuDesc;
-    private String menuIcon;
+    private String title;
+    private String remark;
+    private String icon;
     private String href;
     private Integer isHidden;
     private Long parentId;
@@ -26,8 +29,7 @@ public class Menu {
     private LocalDateTime createTime;
     private LocalDateTime modifyTime;
 
-    public Menu() {
-    }
+    public Menu() {}
 
     public Long getId() {
         return this.id;
@@ -37,36 +39,28 @@ public class Menu {
         this.id = id;
     }
 
-    public String getMenuCode() {
-        return this.menuCode;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setMenuCode(String menuCode) {
-        this.menuCode = menuCode;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getMenuTitle() {
-        return this.menuTitle;
+    public String getRemark() {
+        return this.remark;
     }
 
-    public void setMenuTitle(String menuTitle) {
-        this.menuTitle = menuTitle;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public String getMenuDesc() {
-        return this.menuDesc;
+    public String getIcon() {
+        return this.icon;
     }
 
-    public void setMenuDesc(String menuDesc) {
-        this.menuDesc = menuDesc;
-    }
-
-    public String getMenuIcon() {
-        return this.menuIcon;
-    }
-
-    public void setMenuIcon(String menuIcon) {
-        this.menuIcon = menuIcon;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getHref() {
@@ -136,12 +130,11 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "Menu" +
+        return "Menu ("+
                 "id=" + id + ", " +
-                "menuCode=" + menuCode + ", " +
-                "menuTitle=" + menuTitle + ", " +
-                "menuDesc=" + menuDesc + ", " +
-                "menuIcon=" + menuIcon + ", " +
+                "title=" + title + ", " +
+                "remark=" + remark + ", " +
+                "icon=" + icon + ", " +
                 "href=" + href + ", " +
                 "isHidden=" + isHidden + ", " +
                 "parentId=" + parentId + ", " +
@@ -149,6 +142,6 @@ public class Menu {
                 "createBy=" + createBy + ", " +
                 "modifyBy=" + modifyBy + ", " +
                 "createTime=" + createTime + ", " +
-                "modifyTime=" + modifyTime + ")";
+                "modifyTime=" + modifyTime +")";
     }
 }

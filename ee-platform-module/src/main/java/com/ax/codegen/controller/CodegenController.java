@@ -28,10 +28,7 @@ public class CodegenController extends BaseController {
 
     @Data
     public static class CodeGneBo {
-        private String dbName;
-        private String tableName;
-        private String name;     // 名称
-        private String packageName;     // 生成基本包路径
+        private List<String> tableNames;
         private String moduleName;      // 生成模块名
         private String subModuleName;   // 生成子模块名
     }
@@ -50,11 +47,10 @@ public class CodegenController extends BaseController {
 
     private byte[] gen(CodeGneBo codeGneBo) {
         return generator.genCode(
-                codeGneBo.dbName,
-                codeGneBo.getTableName(),
-                codeGneBo.getPackageName(),
+                codeGneBo.getTableNames(),
                 codeGneBo.getModuleName(),
-                codeGneBo.getSubModuleName());
+                codeGneBo.getSubModuleName()
+        );
     }
 
 }

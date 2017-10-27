@@ -4,6 +4,7 @@ import com.ax.system.user.constant.UserConstant;
 import com.ax.system.user.entity.Role;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,6 +13,10 @@ import java.util.Objects;
 public class RoleUtil {
 
     public static boolean isAdmin(Role role) {
-        return Objects.nonNull(role) && StringUtils.equals(role.getRoleCode(), UserConstant.ROLE_CODE_ADMIN);
+        return Objects.nonNull(role) && StringUtils.equals(role.getName(), UserConstant.ROLE_NAME_ADMIN);
+    }
+
+    public static boolean isAdmin(List<Role> roles) {
+        return roles.stream().anyMatch(RoleUtil::isAdmin);
     }
 }

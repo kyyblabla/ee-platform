@@ -1,27 +1,30 @@
 package com.ax.system.user.entity;
 
+import java.time.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.*;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 /**
  * 
- * Table Name: role
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Entity
+@Table(name="sys_role")
 public class Role {
 
     @Id
+    @GeneratedValue
     private Long id;
-    private String roleCode;
-    private String roleName;
-    private String roleDesc;
+    private String name;
+    private String remark;
     private Integer orderNum;
     private Long createBy;
     private Long modifyBy;
     private LocalDateTime createTime;
     private LocalDateTime modifyTime;
+    private Long orgId;
 
     public Role() {}
 
@@ -33,28 +36,20 @@ public class Role {
         this.id = id;
     }
 
-    public String getRoleCode() {
-        return this.roleCode;
+    public String getName() {
+        return this.name;
     }
 
-    public void setRoleCode(String roleCode) {
-        this.roleCode = roleCode;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRoleName() {
-        return this.roleName;
+    public String getRemark() {
+        return this.remark;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getRoleDesc() {
-        return this.roleDesc;
-    }
-
-    public void setRoleDesc(String roleDesc) {
-        this.roleDesc = roleDesc;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Integer getOrderNum() {
@@ -97,18 +92,26 @@ public class Role {
         this.modifyTime = modifyTime;
     }
 
+    public Long getOrgId() {
+        return this.orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
 
     @Override
     public String toString() {
-        return "Role"+
-        "id=" + id + ", " +
-        "roleCode=" + roleCode + ", " +
-        "roleName=" + roleName + ", " +
-        "roleDesc=" + roleDesc + ", " +
-        "orderNum=" + orderNum + ", " +
-        "createBy=" + createBy + ", " +
-        "modifyBy=" + modifyBy + ", " +
-        "createTime=" + createTime + ", " +
-        "modifyTime=" + modifyTime +")";
+        return "Role ("+
+                "id=" + id + ", " +
+                "name=" + name + ", " +
+                "remark=" + remark + ", " +
+                "orderNum=" + orderNum + ", " +
+                "createBy=" + createBy + ", " +
+                "modifyBy=" + modifyBy + ", " +
+                "createTime=" + createTime + ", " +
+                "modifyTime=" + modifyTime + ", " +
+                "orgId=" + orgId +")";
     }
 }

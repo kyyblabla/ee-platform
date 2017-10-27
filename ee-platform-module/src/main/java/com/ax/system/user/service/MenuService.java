@@ -1,98 +1,67 @@
 package com.ax.system.user.service;
 
 import com.ax.common.service.BaseService;
+
 import com.ax.common.tool.util.BeanMapper;
+import com.ax.common.tool.util.StreamUtil;
 import com.ax.common.util.TreeNodeUtil;
+import com.ax.system.user.constant.UserConstant;
 import com.ax.system.user.dao.MenuDao;
-import com.ax.system.user.dao.RoleMenuRelDao;
-import com.ax.system.user.dto.MenuDto;
+import com.ax.system.user.dao.RoleMenuDao;
 import com.ax.system.user.entity.Menu;
+
 import com.ax.system.user.entity.Role;
-import com.ax.system.user.entity.RoleMenuRel;
+import com.ax.system.user.entity.RoleMenu;
 import com.ax.system.user.util.RoleUtil;
 import com.ax.system.user.vo.MenuTree;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 /**
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Service
 public class MenuService extends BaseService<Menu, MenuDao> {
 
-
     @Autowired
     private RoleService roleService;
     @Autowired
-    private RoleMenuRelDao roleMenuRelDao;
-
-
-    @Transactional
-    public Menu saveMenu(MenuDto menuDto) {
-        Menu menu = BeanMapper.map(menuDto, Menu.class);
-        return dao.save(menu);
-    }
-
-    @Transactional
-    public void deleteMenu(long id) {
-        //如果有子菜单，递归删除
-        dao.findByParentId(id)
-                .forEach(subMenu -> deleteMenu(subMenu.getId()));
-        //删除角色关联的菜单
-        roleMenuRelDao.delete(id);
-        //删除
-        dao.delete(id);
-    }
+    private RoleMenuDao roleMenuDao;
 
     /**
-     * 获取用户菜单树
-     * 管理员获取所有菜单，其他用户根据角色获取
+     * 获取角色的菜单树
+     * 管理员会获取所有菜单
      *
      * @param userId
      * @return
      */
-    public List<MenuTree> getMenuTreeByUserId(int userId) {
-        List<Role> roles = roleService.getUserRoles(userId);
-        if (isAdmin(roles)) {
-            return getMenuTree();
+    public List<MenuTree> getMenuTree(long userId) {
+        //获取用户角色
+        List<Role> roles = roleService.getAllByUserId(userId);
+        //如果是管理员获取所有菜单
+        List<Menu> menuList;
+        if (RoleUtil.isAdmin(roles)) {
+            menuList = dao.findAll();
         } else {
-            List<Long> roleIds = roles.stream()
-                    .map(Role::getId)
-                    .collect(Collectors.toList());
-            List<Long> menuIds = roleMenuRelDao.findByRoleIdIn(roleIds)
-                    .stream()
-                    .map(RoleMenuRel::getMenuId)
-                    .collect(Collectors.toList());
-            return buildMenuTree(dao.findAll(menuIds));
+            //获取角色关联的菜单
+            List<Long> menuIds = StreamUtil.mapToList(roleMenuDao.findByRoleIdIn(StreamUtil.mapToList(roles, Role::getId)), RoleMenu::getMenuId);
+            menuList = dao.findAll(menuIds);
         }
+        return buildMenuTree(menuList);
     }
 
-    /**
-     * 获取完整菜单树
-     *
-     * @return
-     */
-    public List<MenuTree> getMenuTree() {
-        return buildMenuTree(dao.findAll());
+
+    public List<MenuTree> buildMenuTree(List<Menu> menuList) {
+        List<MenuTree> treeNodeList = BeanMapper.mapList(menuList, MenuTree.class);
+        return TreeNodeUtil.build(-1L, treeNodeList);
     }
 
-    private List<MenuTree> buildMenuTree(List<Menu> menus) {
-        List<MenuTree> collect = menus.stream()
-                .map(menu -> BeanMapper.map(menu, MenuTree.class))
-                .collect(Collectors.toList());
-        return TreeNodeUtil.build(-1L, collect);
-    }
-
-    private boolean isAdmin(List<Role> userRoles) {
-        return userRoles.stream()
-                .filter(RoleUtil::isAdmin)
-                .findFirst().isPresent();
-    }
 
 }

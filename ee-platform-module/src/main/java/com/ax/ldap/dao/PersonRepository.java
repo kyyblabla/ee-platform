@@ -1,7 +1,7 @@
-package com.ax.system.ldap.dao;
+package com.ax.ldap.dao;
 
 import com.ax.common.annotation.JpaDao;
-import com.ax.system.ldap.entity.Person;
+import com.ax.ldap.entity.Person;
 import org.springframework.data.ldap.repository.LdapRepository;
 
 /**

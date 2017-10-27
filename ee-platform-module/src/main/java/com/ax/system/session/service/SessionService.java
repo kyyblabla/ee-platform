@@ -2,7 +2,6 @@ package com.ax.system.session.service;
 
 import com.ax.common.security.JwtTokenService;
 import com.ax.system.session.dto.SessionDto;
-import com.ax.system.user.entity.Role;
 import com.ax.system.user.entity.User;
 import com.ax.system.session.security.JwtAuthUserDetailsFactory;
 import com.ax.system.user.service.RoleService;
@@ -43,8 +42,8 @@ public class SessionService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("用户名不存在 '%s'.", username));
         }
         //获取用户角色
-        List<String> roles = roleService.getUserRoles(user.getId()).stream()
-                .map(role -> StringUtils.join("ROLE_", role.getRoleCode().toUpperCase()))
+        List<String> roles = roleService.getAllByUserId(user.getId()).stream()
+                .map(role -> StringUtils.join("ROLE_", role.getName().toUpperCase()))
                 .collect(Collectors.toList());
         return JwtAuthUserDetailsFactory.create(user, roles);
     }

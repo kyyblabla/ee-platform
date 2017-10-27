@@ -1,25 +1,28 @@
 package com.ax.system.user.entity;
 
+import java.time.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.*;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 /**
  * 
- * Table Name: role_menu_rel
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Entity
-public class RoleMenuRel {
+@Table(name="sys_role_menu")
+public class RoleMenu {
 
     @Id
+    @GeneratedValue
     private Long id;
     private Long roleId;
     private Long menuId;
     private Long createBy;
     private LocalDateTime createTime;
 
-    public RoleMenuRel() {}
+    public RoleMenu() {}
 
     public Long getId() {
         return this.id;
@@ -64,11 +67,11 @@ public class RoleMenuRel {
 
     @Override
     public String toString() {
-        return "RoleMenuRel"+
-        "id=" + id + ", " +
-        "roleId=" + roleId + ", " +
-        "menuId=" + menuId + ", " +
-        "createBy=" + createBy + ", " +
-        "createTime=" + createTime +")";
+        return "RoleMenu ("+
+                "id=" + id + ", " +
+                "roleId=" + roleId + ", " +
+                "menuId=" + menuId + ", " +
+                "createBy=" + createBy + ", " +
+                "createTime=" + createTime +")";
     }
 }

@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
-@RequestMapping("/User")
+@RequestMapping("/user")
 @RestController
 public class UserController extends BaseController {
 
     @Autowired
-    private UserService userDao;
+    private UserDao userDao;
 
     @Autowired
     private UserService userService;

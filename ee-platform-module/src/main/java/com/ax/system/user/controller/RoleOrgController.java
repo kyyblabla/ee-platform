@@ -1,9 +1,9 @@
 package com.ax.system.user.controller;
 
 
-import com.ax.system.user.entity.Menu;
-import com.ax.system.user.dao.MenuDao;
-import com.ax.system.user.service.MenuService;
+import com.ax.system.user.entity.RoleOrg;
+import com.ax.system.user.dao.RoleOrgDao;
+import com.ax.system.user.service.RoleOrgService;
 
 import com.ax.common.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by AxCodeGen on 2017/10/27.
  */
-@RequestMapping("/menu")
+@RequestMapping("/roleOrg")
 @RestController
-public class MenuController extends BaseController {
+public class RoleOrgController extends BaseController {
 
     @Autowired
-    private MenuDao menuDao;
+    private RoleOrgDao roleOrgDao;
 
     @Autowired
-    private MenuService menuService;
+    private RoleOrgService roleOrgService;
 
 }

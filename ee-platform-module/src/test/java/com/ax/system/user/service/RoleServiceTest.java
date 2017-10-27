@@ -24,8 +24,8 @@ public class RoleServiceTest extends BaseTest {
     private RoleService roleService;
 
     @Test
-    public void getUserRoles() throws Exception {
-        List<Role> userRoles = roleService.getUserRoles(1);
+    public void getAllByUserId() throws Exception {
+        List<Role> userRoles = roleService.getAllByUserId(1);
         assertTrue(!userRoles.isEmpty());
     }
 

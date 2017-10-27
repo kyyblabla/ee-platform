@@ -1,24 +1,25 @@
 package com.ax.system.user.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.time.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 /**
- * Table Name: user
- * Created by AxCodeGen on 2017/10/25.
+ * 
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Entity
+@Table(name="sys_user")
 public class User {
 
     @Id
     @GeneratedValue
     private Long id;
-
     private String realName;
     private String userName;
-    private String passowrd;
+    private String password;
     private Integer loginTimes;
     private Instant lastLogin;
     private Integer isEnable;
@@ -27,9 +28,9 @@ public class User {
     private Long modifyBy;
     private LocalDateTime createTime;
     private LocalDateTime modifyTime;
+    private Long orgId;
 
-    public User() {
-    }
+    public User() {}
 
     public Long getId() {
         return this.id;
@@ -55,12 +56,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPassowrd() {
-        return this.passowrd;
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setPassowrd(String passowrd) {
-        this.passowrd = passowrd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getLoginTimes() {
@@ -127,13 +128,22 @@ public class User {
         this.modifyTime = modifyTime;
     }
 
+    public Long getOrgId() {
+        return this.orgId;
+    }
 
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
+
+    @Override
     public String toString() {
-        return "User" +
+        return "User ("+
                 "id=" + id + ", " +
                 "realName=" + realName + ", " +
                 "userName=" + userName + ", " +
-                "passowrd=" + passowrd + ", " +
+                "password=" + password + ", " +
                 "loginTimes=" + loginTimes + ", " +
                 "lastLogin=" + lastLogin + ", " +
                 "isEnable=" + isEnable + ", " +
@@ -141,6 +151,7 @@ public class User {
                 "createBy=" + createBy + ", " +
                 "modifyBy=" + modifyBy + ", " +
                 "createTime=" + createTime + ", " +
-                "modifyTime=" + modifyTime + ")";
+                "modifyTime=" + modifyTime + ", " +
+                "orgId=" + orgId +")";
     }
 }

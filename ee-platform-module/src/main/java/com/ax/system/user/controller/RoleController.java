@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
-@RequestMapping("/Role")
+@RequestMapping("/role")
 @RestController
 public class RoleController extends BaseController {
 
     @Autowired
-    private RoleService roleDao;
+    private RoleDao roleDao;
 
     @Autowired
     private RoleService roleService;

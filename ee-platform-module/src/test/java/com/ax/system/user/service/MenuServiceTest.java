@@ -19,10 +19,10 @@ public class MenuServiceTest extends BaseTest {
 
     @Test
     public void getMenuTreeByUserId() throws Exception {
-        List<MenuTree> menuTreeByUserId = menuService.getMenuTreeByUserId(1);
+        List<MenuTree> menuTreeByUserId = menuService.getMenuTree(1);
         assertEquals(2, menuTreeByUserId.size());
 
-        List<MenuTree> menuTreeByUserId1 = menuService.getMenuTreeByUserId(2);
+        List<MenuTree> menuTreeByUserId1 = menuService.getMenuTree(2);
         assertEquals(1, menuTreeByUserId1.size());
     }
 

@@ -5,7 +5,7 @@ package com.ax.system.user.constant;
  */
 public class UserConstant {
 
-    public static final String ROLE_CODE_ADMIN = "admin";
+    public static final String ROLE_NAME_ADMIN = "admin";
 
     /**
      * 组织角色、用户角色关联在同一张表中,通过unit区分

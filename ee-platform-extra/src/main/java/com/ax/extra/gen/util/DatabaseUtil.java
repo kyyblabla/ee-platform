@@ -26,7 +26,7 @@ public class DatabaseUtil {
 
     private TypeConvert typeConvert;
 
-    public static String DEFAULT_TABLE_NAME_PREFIX_REGEX = "^[^_]*—_";
+    public static String DEFAULT_TABLE_NAME_PREFIX_REGEX = "^[^_]*_";
 
     private DatabaseUtil(Connection conn) {
         this.conn = conn;

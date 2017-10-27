@@ -1,25 +1,28 @@
 package com.ax.system.user.entity;
 
+import java.time.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.*;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 /**
- * Table Name: user_org_rel
- * Created by AxCodeGen on 2017/10/25.
+ * 
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Entity
-public class UserOrgRel {
+@Table(name="sys_role_org")
+public class RoleOrg {
 
     @Id
+    @GeneratedValue
     private Long id;
-    private Long userId;
+    private Long roleId;
     private Long orgId;
     private Long createBy;
     private LocalDateTime createTime;
 
-    public UserOrgRel() {
-    }
+    public RoleOrg() {}
 
     public Long getId() {
         return this.id;
@@ -29,12 +32,12 @@ public class UserOrgRel {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return this.userId;
+    public Long getRoleId() {
+        return this.roleId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public Long getOrgId() {
@@ -64,11 +67,11 @@ public class UserOrgRel {
 
     @Override
     public String toString() {
-        return "UserOrgRel" +
+        return "RoleOrg ("+
                 "id=" + id + ", " +
-                "userId=" + userId + ", " +
+                "roleId=" + roleId + ", " +
                 "orgId=" + orgId + ", " +
                 "createBy=" + createBy + ", " +
-                "createTime=" + createTime + ")";
+                "createTime=" + createTime +")";
     }
 }

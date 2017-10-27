@@ -1,22 +1,24 @@
 package com.ax.system.user.entity;
 
+import java.time.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.*;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 /**
  * 
- * Table Name: organization
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Entity
+@Table(name="sys_organization")
 public class Organization {
 
     @Id
+    @GeneratedValue
     private Long id;
-    private String orgCode;
-    private String orgName;
-    private String orgType;
+    private String name;
+    private String type;
     private Long parentId;
     private Integer orderNum;
     private Long createBy;
@@ -34,28 +36,20 @@ public class Organization {
         this.id = id;
     }
 
-    public String getOrgCode() {
-        return this.orgCode;
+    public String getName() {
+        return this.name;
     }
 
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getOrgName() {
-        return this.orgName;
+    public String getType() {
+        return this.type;
     }
 
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
-
-    public String getOrgType() {
-        return this.orgType;
-    }
-
-    public void setOrgType(String orgType) {
-        this.orgType = orgType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Long getParentId() {
@@ -109,16 +103,15 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "Organization"+
-        "id=" + id + ", " +
-        "orgCode=" + orgCode + ", " +
-        "orgName=" + orgName + ", " +
-        "orgType=" + orgType + ", " +
-        "parentId=" + parentId + ", " +
-        "orderNum=" + orderNum + ", " +
-        "createBy=" + createBy + ", " +
-        "modifyBy=" + modifyBy + ", " +
-        "createTime=" + createTime + ", " +
-        "modifyTime=" + modifyTime +")";
+        return "Organization ("+
+                "id=" + id + ", " +
+                "name=" + name + ", " +
+                "type=" + type + ", " +
+                "parentId=" + parentId + ", " +
+                "orderNum=" + orderNum + ", " +
+                "createBy=" + createBy + ", " +
+                "modifyBy=" + modifyBy + ", " +
+                "createTime=" + createTime + ", " +
+                "modifyTime=" + modifyTime +")";
     }
 }

@@ -1,26 +1,28 @@
 package com.ax.system.user.entity;
 
+import java.time.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.*;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 /**
- * Table Name: role_unit_rel
- * Created by AxCodeGen on 2017/10/25.
+ * 
+ * Created by AxCodeGen on 2017/10/27.
  */
 @Entity
-public class RoleUnitRel {
+@Table(name="sys_user_role")
+public class UserRole {
 
     @Id
+    @GeneratedValue
     private Long id;
     private Long roleId;
-    private Long unitId;
-    private String unitType;
+    private Long userId;
     private Long createBy;
     private LocalDateTime createTime;
 
-    public RoleUnitRel() {
-    }
+    public UserRole() {}
 
     public Long getId() {
         return this.id;
@@ -38,20 +40,12 @@ public class RoleUnitRel {
         this.roleId = roleId;
     }
 
-    public Long getUnitId() {
-        return this.unitId;
+    public Long getUserId() {
+        return this.userId;
     }
 
-    public void setUnitId(Long unitId) {
-        this.unitId = unitId;
-    }
-
-    public String getUnitType() {
-        return this.unitType;
-    }
-
-    public void setUnitType(String unitType) {
-        this.unitType = unitType;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getCreateBy() {
@@ -73,12 +67,11 @@ public class RoleUnitRel {
 
     @Override
     public String toString() {
-        return "RoleUnitRel" +
+        return "UserRole ("+
                 "id=" + id + ", " +
                 "roleId=" + roleId + ", " +
-                "unitId=" + unitId + ", " +
-                "unitType=" + unitType + ", " +
+                "userId=" + userId + ", " +
                 "createBy=" + createBy + ", " +
-                "createTime=" + createTime + ")";
+                "createTime=" + createTime +")";
     }
 }

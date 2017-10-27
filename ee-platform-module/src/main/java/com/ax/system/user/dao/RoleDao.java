@@ -6,7 +6,7 @@ import com.ax.common.repository.BaseDao;
 import com.ax.system.user.entity.Role;
 
 /**
- * Created by AxCodeGen on 2017/10/25.
+ * Created by AxCodeGen on 2017/10/27.
  */
 @JpaDao
 public interface RoleDao extends BaseDao<Role> {

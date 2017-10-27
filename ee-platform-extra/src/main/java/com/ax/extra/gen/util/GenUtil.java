@@ -64,7 +64,8 @@ public class GenUtil {
                 File.separator, "java",
                 File.separator, scheme.getPackageName(),
                 File.separator, scheme.getModuleName(),
-                File.separator, StringUtils.trimToEmpty(scheme.getSubModuleName())
+                File.separator, StringUtils.trimToEmpty(scheme.getSubModuleName()),
+                File.separator, FileUtilsExt.getFileNameWithoutSuffix(codeTemplateFileName).toLowerCase()
         );
         filePath = StringUtils.replacePattern(filePath, "//|\\\\", File.separator);
         filePath = StringUtils.replacePattern(filePath, "\\.", File.separator);
