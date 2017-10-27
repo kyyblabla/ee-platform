@@ -45,7 +45,7 @@ public class MenuService extends BaseService<Menu, MenuDao> {
         dao.findByParentId(id)
                 .forEach(subMenu -> deleteMenu(subMenu.getId()));
         //删除角色关联的菜单
-        roleMenuRelDao.deleleByMenuId(id);
+        roleMenuRelDao.delete(id);
         //删除
         dao.delete(id);
     }

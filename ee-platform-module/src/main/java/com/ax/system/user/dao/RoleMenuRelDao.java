@@ -16,6 +16,6 @@ public interface RoleMenuRelDao extends BaseDao<RoleMenuRel> {
 
     List<RoleMenuRel> findByRoleIdIn(List<Long> roleIds);
 
-    long deleleByMenuId(long menuId);
+    long deleteByMenuId(long menuId);
 
 }

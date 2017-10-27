@@ -15,7 +15,7 @@ public class DefaultTypeConvert implements TypeConvert {
 
     static {
         try {
-            configuration = new PropertiesConfiguration("generator-type-convert.properties");
+            configuration = new PropertiesConfiguration("generator.properties");
         } catch (ConfigurationException e) {
             throw new RuntimeException("获取配置文件失败，", e);
         }
@@ -34,4 +34,5 @@ public class DefaultTypeConvert implements TypeConvert {
     public String convertJavaTypeToSqlType(String javaType) {
         return null;
     }
+    
 }

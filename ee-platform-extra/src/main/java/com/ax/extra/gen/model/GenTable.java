@@ -19,25 +19,5 @@ public class GenTable {
     private String classNameFll; //fll：首字母小写 first litter lowercase
 
     private List<GenColumn> columns;
-    
-    @XmlElement
-    public String getTableName() {
-        return tableName;
-    }
-
-    @XmlElement
-    public String getTableComment() {
-        return tableComment;
-    }
-
-    @XmlElement
-    public String getClassName() {
-        return className;
-    }
-
-    @XmlElement
-    public String getClassNameFll() {
-        return classNameFll;
-    }
 
 }

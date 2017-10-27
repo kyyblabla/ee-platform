@@ -1,4 +1,4 @@
-package com.ax.extra.gen.generator;
+package com.ax.extra.gen.util;
 
 import com.ax.common.tool.util.Exceptions;
 import com.ax.extra.gen.convert.DefaultTypeConvert;
@@ -20,20 +20,22 @@ import java.util.stream.Collectors;
  * 数据库反向
  * Created by kyy on 2017/9/22.
  */
-public class DatabaseReverser {
+public class DatabaseUtil {
 
     private Connection conn;
 
     private TypeConvert typeConvert;
 
-    private DatabaseReverser(Connection conn) {
+    public static String DEFAULT_TABLE_NAME_PREFIX_REGEX = "^[^_]*—_";
+
+    private DatabaseUtil(Connection conn) {
         this.conn = conn;
         this.typeConvert = new DefaultTypeConvert();
     }
 
 
-    public static DatabaseReverser createDatabaseReverser(Connection conn) {
-        return new DatabaseReverser(conn);
+    public static DatabaseUtil createDatabaseReverser(Connection conn) {
+        return new DatabaseUtil(conn);
     }
 
     public void setTypeConvert(TypeConvert typeConvert) {
@@ -49,12 +51,15 @@ public class DatabaseReverser {
      */
     public GenTable getTable(String databaseName, String tableName) {
         try {
+
+
             // 获取基本表信息
             GenTable table = new GenTable();
             table.setTableName(tableName);
             table.setColumns(getColumns(databaseName, tableName));
-            table.setClassName(convertLodashCaseToCamelCase(table.getTableName()));
-            table.setClassNameFll(convertLodashCaseToFirstLetterLowerCaseCamelCase(table.getTableName()));
+            String tableNameWithoutPrefix = table.getTableName().replaceAll(DEFAULT_TABLE_NAME_PREFIX_REGEX, "");
+            table.setClassName(convertLodashCaseToCamelCase(tableNameWithoutPrefix));
+            table.setClassNameFll(convertLodashCaseToFirstLetterLowerCaseCamelCase(tableNameWithoutPrefix));
 
             ResultSet rs = conn.getMetaData().getTables(null, databaseName, tableName, new String[]{"TABLE"});
             //设置备注信息

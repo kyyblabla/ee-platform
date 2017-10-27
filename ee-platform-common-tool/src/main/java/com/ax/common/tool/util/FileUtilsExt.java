@@ -83,7 +83,8 @@ public class FileUtilsExt extends FileUtils {
         return fileName.substring(0, fileName.lastIndexOf("."));
     }
 
-    public static String getFileNameWithoutSuffixByPathName(String pathName) {
+
+    public static String getFileNameWithoutSuffixFromPathName(String pathName) {
 
         if (StringUtils.isBlank(pathName)) {
             return null;
@@ -92,6 +93,19 @@ public class FileUtilsExt extends FileUtils {
             return null;
         }
         return getFileNameWithoutSuffix(pathName.substring(pathName.lastIndexOf(File.separator) + 1));
+    }
+
+    public static String getFileNameFormPathName(String pathName) {
+
+        if (StringUtils.isBlank(pathName)) {
+            return null;
+        }
+        if (pathName.indexOf(File.separator) == -1) {
+            return pathName;
+        }
+
+        return pathName.substring(pathName.lastIndexOf(File.separator) + File.separator.length());
+
     }
 
 
