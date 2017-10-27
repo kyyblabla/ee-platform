@@ -2,9 +2,12 @@ package com.ax.system.session.service;
 
 import com.ax.common.security.JwtTokenService;
 import com.ax.system.session.dto.SessionDto;
+import com.ax.system.user.entity.Role;
 import com.ax.system.user.entity.User;
 import com.ax.system.session.security.JwtAuthUserDetailsFactory;
+import com.ax.system.user.service.RoleService;
 import com.ax.system.user.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +17,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by kyy on 2017/9/8.
@@ -27,6 +33,8 @@ public class SessionService implements UserDetailsService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenService jwtTokenService;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -34,7 +42,11 @@ public class SessionService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("用户名不存在 '%s'.", username));
         }
-        return JwtAuthUserDetailsFactory.create(user, null);
+        //获取用户角色
+        List<String> roles = roleService.getUserRoles(user.getId()).stream()
+                .map(role -> StringUtils.join("ROLE_", role.getRoleCode().toUpperCase()))
+                .collect(Collectors.toList());
+        return JwtAuthUserDetailsFactory.create(user, roles);
     }
 
     public String login(SessionDto sessionDto) {

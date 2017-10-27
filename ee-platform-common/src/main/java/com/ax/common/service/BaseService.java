@@ -1,6 +1,7 @@
 package com.ax.common.service;
 
 import com.ax.common.repository.BaseDao;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,58 +19,13 @@ public abstract class BaseService<T, D extends BaseDao<T>> {
     @Autowired
     protected D dao;
 
-    @Transactional
-    public T save(T t) {
-        return dao.save(t);
+    public Page<T> findAll(int pageNum, int pageSize) {
+        return findAll(pageNum, pageSize, null);
     }
 
-    @Transactional
-    public List<T> save(Iterable<T> t) {
-        return dao.save(t);
+    public Page<T> findAll(int pageNum, int pageSize, Sort sort) {
+        return dao.findAll(buildPageRequest(pageNum, pageSize, sort));
     }
-
-    @Transactional
-    public void delete(T t) {
-        dao.delete(t);
-    }
-
-    @Transactional
-    public void delete(Long id) {
-        dao.delete(id);
-    }
-
-    public T findOne(Long id) {
-        return dao.findOne(id);
-    }
-
-    public List<T> findAll() {
-        return dao.findAll();
-    }
-
-    public List<T> findAll(List<Long> ids) {
-        return dao.findAll(ids);
-    }
-
-    public List<T> findAll(Sort sort) {
-        return dao.findAll(sort);
-    }
-
-    public Page<T> findAll(Pageable page) {
-        return dao.findAll(page);
-    }
-
-    public List<T> findAll(Specification<T> specification) {
-        return dao.findAll(specification);
-    }
-
-    public List<T> findAll(Specification<T> specification, Sort sort) {
-        return dao.findAll(specification, sort);
-    }
-
-    public Page<T> findAll(Specification<T> specification, Pageable pageable) {
-        return dao.findAll(specification, pageable);
-    }
-
 
     /**
      * 创建分页请求
@@ -80,7 +36,7 @@ public abstract class BaseService<T, D extends BaseDao<T>> {
      */
     protected PageRequest buildPageRequest(int pageNumber, int pageSize, Sort sort) {
         if (sort == null) {
-            sort = new Sort(Sort.Direction.DESC, "id");
+            sort = new Sort(Sort.Direction.ASC, "id");
         }
         return new PageRequest(pageNumber - 1, pageSize, sort);
     }

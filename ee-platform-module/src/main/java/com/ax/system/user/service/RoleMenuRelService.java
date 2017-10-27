@@ -15,9 +15,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleMenuRelService extends BaseService<RoleMenuRel, RoleMenuRelDao> {
 
-    @Autowired
-    public void getRoles() {
-
-    }
 
 }

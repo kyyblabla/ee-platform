@@ -3,6 +3,8 @@ package com.ax.system.user.vo;
 import com.ax.common.vo.TreeNode;
 import lombok.Data;
 
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -10,11 +12,10 @@ import java.util.List;
  */
 @Data
 public class MenuTree extends TreeNode {
-    private String code;
-    private String title;
-    private Long parentId;
-    private String path;
+
+    private String menuCode;
+    private String menuTitle;
     private String href;
-    private String icon;
-    private List<Object> metaData;
+    private String menuIcon;
+
 }

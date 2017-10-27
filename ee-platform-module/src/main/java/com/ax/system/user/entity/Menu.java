@@ -18,7 +18,6 @@ public class Menu {
     private String menuDesc;
     private String menuIcon;
     private String href;
-    private String path;
     private Integer isHidden;
     private Long parentId;
     private Integer orderNum;
@@ -76,14 +75,6 @@ public class Menu {
 
     public void setHref(String href) {
         this.href = href;
-    }
-
-    public String getPath() {
-        return this.path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     public Integer getIsHidden() {
@@ -152,7 +143,6 @@ public class Menu {
                 "menuDesc=" + menuDesc + ", " +
                 "menuIcon=" + menuIcon + ", " +
                 "href=" + href + ", " +
-                "path=" + path + ", " +
                 "isHidden=" + isHidden + ", " +
                 "parentId=" + parentId + ", " +
                 "orderNum=" + orderNum + ", " +

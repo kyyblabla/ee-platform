@@ -1,5 +1,6 @@
 package com.ax.common.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class TreeNode {
     protected Long id;
     protected Long parentId;
     protected Integer orderNum;
+
     private List<TreeNode> children = new ArrayList<>();
 
 }

@@ -9,24 +9,34 @@ import java.util.List;
 /**
  * Created by kyy on 2017/10/24.
  */
-public class TreeNodeUtil {
+public class TreeNodeUtil<T extends TreeNode> {
 
-    public static List<TreeNode> build(Long rootId, List<TreeNode> treeNodes) {
+
+    public static <T extends TreeNode> List<T> build(Long rootId, List<T> treeNodes) {
         //排序
-        treeNodes.forEach(treeNode -> treeNodes.sort(Comparator.comparingInt(TreeNode::getOrderNum)));
-        List<TreeNode> tree = Lists.newArrayList();
+        List<T> tree = Lists.newArrayList();
         treeNodes.forEach(treeNode -> {
             if (rootId.equals(treeNode.getParentId())) {
                 tree.add(treeNode);
             }
             addChildrenTreeNodes(treeNode, treeNodes);
         });
+        sortTree(tree);
         return tree;
     }
 
-    private static void addChildrenTreeNodes(TreeNode parentTreeNode, List<TreeNode> treeNodes) {
+    private static <T extends TreeNode> void sortTree(List<T> treeNodes) {
+        treeNodes.forEach(t -> {
+            t.getChildren().sort(Comparator.comparingLong(TreeNode::getOrderNum));
+            //递归
+            sortTree(t.getChildren());
+        });
+        treeNodes.sort(Comparator.comparingLong(TreeNode::getOrderNum));
+    }
+
+    private static <T extends TreeNode> void addChildrenTreeNodes(T parentTreeNode, List<T> treeNodes) {
         treeNodes.forEach(treeNode -> {
-            if (treeNode.getParentId().equals(treeNode.getId())) {
+            if (treeNode.getParentId().equals(parentTreeNode.getId())) {
                 if (parentTreeNode.getChildren() == null) {
                     parentTreeNode.setChildren(Lists.newArrayList());
                 }
@@ -34,5 +44,6 @@ public class TreeNodeUtil {
             }
         });
     }
+
 
 }

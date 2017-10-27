@@ -2,6 +2,7 @@ package com.ax.system.user.service;
 
 import com.ax.common.service.BaseService;
 
+import com.ax.system.user.constant.UserConstant;
 import com.ax.system.user.dao.RoleDao;
 import com.ax.system.user.dao.RoleUnitRelDao;
 import com.ax.system.user.entity.Role;
@@ -21,13 +22,12 @@ import java.util.stream.Collectors;
 @Service
 public class RoleUnitRelService extends BaseService<RoleUnitRel, RoleUnitRelDao> {
 
-
     public List<RoleUnitRel> getRoleRelByUserId(Long userId) {
-        return dao.findByUnitIdAndUnitType(userId, "user");
+        return dao.findByUnitIdAndUnitType(userId, UserConstant.UNIT_TYPE_USER);
     }
 
     public List<RoleUnitRel> getRoleRelByOrgId(Long orgId) {
-        return dao.findByUnitIdAndUnitType(orgId, "org");
+        return dao.findByUnitIdAndUnitType(orgId, UserConstant.UNIT_TYPE_ORGANIZATION);
     }
 
 }

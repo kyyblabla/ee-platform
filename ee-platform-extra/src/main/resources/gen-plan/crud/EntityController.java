@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by ${createUser!"AxCodeGen"} on ${createDate?string["yyyy/MM/dd"]}.
  */
-@RequestMapping("/${table.className}")
+@RequestMapping("/${table.classNameFll}")
 @RestController
 public class ${table.className}Controller extends BaseController {
 
     @Autowired
-    private ${table.className}Service ${table.classNameFll}Dao;
+    private ${table.className}Dao ${table.classNameFll}Dao;
 
     @Autowired
     private ${table.className}Service ${table.classNameFll}Service;
